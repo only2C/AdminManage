@@ -16,7 +16,7 @@ export default class Material extends React.Component {
         super(props);
         this.state = {
             rowsName: [{code:'id',name:'id',hidden:true},{code:'img',name:'路径'},{code:'type',name:'类型'},{code:'remarks',name:'备注'},
-                {code:'sortNo',name:'排序'},{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间'},{code:'gmtModified',name:'修改时间'},
+                {code:'sortNo',name:'排序'},{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
             ],
             show:false ,
             operationData:{},
@@ -46,10 +46,18 @@ export default class Material extends React.Component {
         )
     }
 
+    addRows =()=>{
+        this.setState({
+            show:true,
+            operationType:'add'
+        })
+
+    }
     previewRows = (rows)=>{
         this.setState({
             show:true ,
-            operationData:rows
+            operationData:rows,
+            operationType:'preview'
         })
 
     }
@@ -73,7 +81,7 @@ export default class Material extends React.Component {
         return(
             <div className="a-box">
                 <div className="fr mb10">
-                    <Button bsStyle="info">新增</Button>
+                    <Button bsStyle="info" onClick={this.addRows}>新增</Button>
                 </div>
 
                 <BootstrapTable data={store.ListMaterial} striped hover options={options}>
@@ -86,7 +94,7 @@ export default class Material extends React.Component {
                     <TableHeaderColumn dataField='gmtCreate' dataFormat={this.dataFormat}>创建时间</TableHeaderColumn>
                     <TableHeaderColumn dataField='gmtModified' dataFormat={this.dataFormat}>修改时间</TableHeaderColumn>
                     <TableHeaderColumn dataFormat = {
-                        (row,cell)=>{
+                        (cell,row,row2,row3)=>{
                             return(
                                 <div>
                                     <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
@@ -98,7 +106,7 @@ export default class Material extends React.Component {
                     }>操作</TableHeaderColumn>
                 </BootstrapTable>
 
-                <ModalView show= {this.state.show} closeModal={this.closeModal} data={this.state.operationData} type={this.state.operationType}/>
+                <ModalView show= {this.state.show} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
 
             </div>
         )
