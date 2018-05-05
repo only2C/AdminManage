@@ -85,3 +85,67 @@
   margin-bottom: 0;
   table-layout: fixed;
 }
+
+// 上传组件
+.upload {
+  width: 100%;
+  border: 1px solid #e6e6e6;
+  background: #fff;
+  ul {
+    width: 50%;
+    height: 27px;
+    margin: 50px auto;
+    li {
+      width: 100%;
+      line-height: 27px;
+      text-align: center;
+      .f12;
+      color: #DDDDDD;
+      border: 1px solid #D6D6D6;
+      border-radius: 4px;
+      cursor: pointer;
+      &.active {
+        border-color: #00A995;
+        color: #00A995;
+      }
+    }
+  }
+  .upload-add {
+    width: 75%;
+    height:50px;
+    margin: 30px auto;
+    background: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    .upload-bg {
+      width: 80px;
+      height: 80px;
+      display: block;
+      background: url(./images/upload-add.png) no-repeat center;
+      cursor: pointer;
+    }
+  }
+  .upload-complete{
+    width: 75%;
+    margin: 30px auto;
+    .upload-add-list{
+      p{
+        width: 90%;
+        overflow: hidden;
+        height: 30px;
+        line-height: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      span{
+        float: right;
+        margin: -23px 0 0 0;
+        color: red;
+        cursor: pointer;
+      }
+    }
+
+  }
+}

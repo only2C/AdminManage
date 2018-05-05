@@ -13,6 +13,7 @@ import * as sscRefer from 'ssc-refer';
 import $ from 'jquery';
 import Config from './config';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-datepicker/dist/react-datepicker.css'
 import './less/adminManage.less';
 import GlobalStore from './stores/GlobalStore';
 import App from './containers/App';

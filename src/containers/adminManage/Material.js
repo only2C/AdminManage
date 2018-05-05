@@ -15,11 +15,12 @@ export default class Material extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'img',name:'路径'},{code:'type',name:'类型'},{code:'remarks',name:'备注'},
-                {code:'sortNo',name:'排序'},{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'img',name:'路径',add:true },{code:'type',name:'类型',add:true },{code:'remarks',name:'备注',add:true },
+                {code:'sortNo',name:'排序',add:true },{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
             ],
             show:false ,
             operationData:{},
+            item:1,
             operationType:'preview'   ,  // preview 预览  edit 编辑  add 新增
 
         }
@@ -31,7 +32,7 @@ export default class Material extends React.Component {
 
     getMaterialList=()=>{
 
-        store.getListMaterial({},(data)=>{
+        store.getListMaterial(this.state.item,(data)=>{
             this.setState({
                 materialList:data
             })
@@ -40,16 +41,30 @@ export default class Material extends React.Component {
 
     }
 
-    dataFormat = (rows,cell)=>{
-        return (
-            <span>{rows}</span>
-        )
+    dataFormat = (type,rows,cell)=>{
+        if(type=="type"){
+            let name ="首页轮播";
+            if(type == 2 ){
+                name ="首页效果图"
+            }else if(type ==3 ){
+                name = "提现规则"
+            }
+            return (
+                <span>{name}</span>
+            )
+        }else{
+            return (
+                <span>{rows}</span>
+            )
+        }
+
     }
 
     addRows =()=>{
         this.setState({
             show:true,
-            operationType:'add'
+            operationType:'add',
+            data:{}
         })
 
     }
@@ -62,9 +77,18 @@ export default class Material extends React.Component {
 
     }
     editRows = (rows)=>{
-
+        this.setState({
+            show:true ,
+            operationData:rows,
+            operationType:'edit'
+        })
     }
-    deleteRows =()=>{
+    deleteRows =(rows)=>{
+        globalStore.showTipsModal("是否删除","small",()=>{},()=>{
+            store.deleteMaterial(rows,()=>{
+                this.getMaterialList()
+            });
+        })
 
     }
     closeModal = ()=>{
@@ -73,6 +97,30 @@ export default class Material extends React.Component {
         })
     }
 
+    changeItem =( item )=>{
+        this.setState({
+            item
+        },()=>{
+            this.getMaterialList()
+        })
+
+    }
+
+    saveModal = (data)=>{
+        if(this.state.operationType =="add"){
+            store.saveMaterial(data,()=>{
+                this.closeModal();
+                this.getMaterialList();
+            })
+        }else{
+            store.updateMaterial(data,()=>{
+                this.closeModal();
+                this.getMaterialList();
+            })
+        }
+
+
+    }
     render(){
         console.log(store.ListMaterial)
         const  options ={
@@ -80,21 +128,28 @@ export default class Material extends React.Component {
         }
         return(
             <div className="a-box">
+                <ul>
+                   <li onClick={this.changeItem.bind(this,1)}>首页轮播</li>
+                   <li onClick={this.changeItem.bind(this,2)}>首页效果图</li>
+                   <li onClick={this.changeItem.bind(this,3)}>提现规则</li>
+                </ul>
+
                 <div className="fr mb10">
                     <Button bsStyle="info" onClick={this.addRows}>新增</Button>
                 </div>
 
                 <BootstrapTable data={store.ListMaterial} striped hover options={options}>
                     <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='img' dataFormat={this.dataFormat}>路径</TableHeaderColumn>
-                    <TableHeaderColumn dataField='type' dataFormat={this.dataFormat}>类型</TableHeaderColumn>
-                    <TableHeaderColumn dataField='remarks' dataFormat={this.dataFormat}>备注</TableHeaderColumn>
-                    <TableHeaderColumn dataField='sortNo' dataFormat={this.dataFormat}>排序</TableHeaderColumn>
-                    <TableHeaderColumn dataField='isDeleted' dataFormat={this.dataFormat}>删除状态</TableHeaderColumn>
-                    <TableHeaderColumn dataField='gmtCreate' dataFormat={this.dataFormat}>创建时间</TableHeaderColumn>
-                    <TableHeaderColumn dataField='gmtModified' dataFormat={this.dataFormat}>修改时间</TableHeaderColumn>
+                    {this.state.rowsName.map((m,n)=>{
+                        if(!m.hidden ){
+                            return (
+                                <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
+                            )
+                        }
+                    })}
+
                     <TableHeaderColumn dataFormat = {
-                        (cell,row,row2,row3)=>{
+                        (cell,row)=>{
                             return(
                                 <div>
                                     <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
@@ -106,7 +161,7 @@ export default class Material extends React.Component {
                     }>操作</TableHeaderColumn>
                 </BootstrapTable>
 
-                <ModalView show= {this.state.show} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
+                <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
 
             </div>
         )
