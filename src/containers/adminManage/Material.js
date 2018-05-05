@@ -39,10 +39,13 @@ export default class Material extends React.Component {
 
     render(){
         console.log(store.ListMaterial)
+        const  options ={
+            noDataText:"暂无数据"
+        }
         return(
             <div className="a-box">
-                <BootstrapTable data={store.ListMaterial} striped hover>
-                    <TableHeaderColumn isKey dataField='id'>Product ID</TableHeaderColumn>
+                <BootstrapTable data={store.ListMaterial} striped hover options={options}>
+                    <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                     <TableHeaderColumn dataField='img'>路径</TableHeaderColumn>
                     <TableHeaderColumn dataField='type'>类型</TableHeaderColumn>
                     <TableHeaderColumn dataField='remarks'>备注</TableHeaderColumn>
