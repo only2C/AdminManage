@@ -13,10 +13,7 @@ import * as sscRefer from 'ssc-refer';
 import $ from 'jquery';
 import Config from './config';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'react-datepicker/dist/react-datepicker.min.css';
-import 'rc-checkbox/assets/index.css'
-import 'rc-tree/assets/index.css'
-import './less/ybz-index.less';
+import './less/adminManage.less';
 import GlobalStore from './stores/GlobalStore';
 import App from './containers/App';
 import Bundle from './bundle.js';
@@ -41,6 +38,10 @@ const Register  = (props) => (<Bundle load={RegisterContainer} {...props}>{ (Pag
 const Credit  = (props) => (<Bundle load={CreditContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Setting  = (props) => (<Bundle load={SettingContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Salary  = (props) => (<Bundle load={SalaryContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
+
+
+import LoginContainer2 from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Login';
+const Login2  = (props) => (<Bundle load={LoginContainer2} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 
 const requireAuth = (nextState, replace, next) => {
   //切换路由时初始化环境
@@ -72,7 +73,7 @@ ReactDom.render(
       <Route path="/billEdit/:pk/:factoryId" component={BillEdit}/> /* 新增订单*/
       <Route path="/addMoney/:pk/:factoryId" component={AddMoney}/> /* 新增收款*/
       <Route path="/billDetail/:pk" component={BillDetail}/> /* 单据详情*/
-      <Route path="/login" component={Login}/> /* 登陆 */
+      <Route path="/login" component={Login2}/> /* 登陆 */
       <Route path="/credit" component={Credit}/> /* 贷款*/
       <Route path="/setting" component={Setting}/> /* 设置*/
       <Route path="/salary/:pk/:factoryId" component={Salary}/> /* 计件工资*/

@@ -4,7 +4,7 @@ module.exports = {
     port: '99',
     path: 'dist',
     publicPath: './',
-    serverHost : "http://127.0.0.1:8080"
+    serverHost : "https://591zml.com/zml_energy_coin_manage/"
   },
   myHost:{
     path: 'dist',

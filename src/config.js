@@ -41,6 +41,10 @@ var Config = {
          queryIncomeClient:serverUrl + '/income/getClients' , //获取收款客户
          queryOrderDetail:serverUrl+'/order/detial' ,  //查询单据详情
 
+     },
+
+     adminManage:{
+        userLogin:serverUrl + 'user/login', // 用户登录
      }
 
 
