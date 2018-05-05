@@ -58,7 +58,13 @@ var Config = {
              deleteCoinPrice:serverUrl+'material/deleteCoinPrice' ,
              insertCoinPrice:serverUrl+'material/insertCoinPrice' ,
              updateCoinPrice:serverUrl+'material/updateCoinPrice' ,
-         }
+         },
+         record:{
+             listTransactionRecordByType:serverUrl+'record/listTransactionRecordByType',
+             checkBuyCoin:serverUrl+'record/checkBuyCoin',
+             checkBuyInvitation:serverUrl+'record/checkBuyInvitation',
+         },
+         upload:serverUrl+'upload/picUpload'
      }
 
 
