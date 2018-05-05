@@ -45,6 +45,13 @@ var Config = {
 
      adminManage:{
         userLogin:serverUrl + 'user/login', // 用户登录
+        material:{
+            listMaterial:serverUrl+'material/listMaterial' ,
+            getMaterial:serverUrl+'material/getMaterial' ,
+            deleteMaterial:serverUrl+'material/deleteMaterial' ,
+            insertMaterial:serverUrl+'material/insertMaterial' ,
+            updateMaterial:serverUrl+'material/updateMaterial' ,
+        }
      }
 
 

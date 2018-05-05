@@ -63,6 +63,34 @@ export default class  adminManageStore{
         })
     }
 
+    //获取素材
+    @observable ListMaterial = [];
+    @action getListMaterial(param,callback){
+        this.globalStore.hideAlert();
+        let that = this ;
+        $.ajax({
+            type: "GET",
+            url: Config.adminManage.material.listMaterial+'?type=1',
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
 
+                data
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data.data)
+                    }
+
+                    this.ListMaterial = Object.assign([],data.data)
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+
+    }
 
 }

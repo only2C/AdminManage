@@ -41,7 +41,9 @@ const Salary  = (props) => (<Bundle load={SalaryContainer} {...props}>{ (Page) =
 
 
 import LoginContainer2 from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Login';
+import MaterialContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Material';
 const Login2  = (props) => (<Bundle load={LoginContainer2} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
+const Material  = (props) => (<Bundle load={MaterialContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 
 const requireAuth = (nextState, replace, next) => {
   //切换路由时初始化环境
@@ -78,6 +80,8 @@ ReactDom.render(
       <Route path="/setting" component={Setting}/> /* 设置*/
       <Route path="/salary/:pk/:factoryId" component={Salary}/> /* 计件工资*/
       <Route path="/register" component={Register}/> /* 计件工资*/
+
+      <Route path="/material" component={Material}/>
     </Route>
   </Router>,
   document.getElementById('root')
