@@ -51,7 +51,14 @@ var Config = {
             deleteMaterial:serverUrl+'material/deleteMaterial' ,
             insertMaterial:serverUrl+'material/insertMaterial' ,
             updateMaterial:serverUrl+'material/updateMaterial' ,
-        }
+        },
+         coinPrice:{
+             getCoinPriceList:serverUrl+'material/getCoinPriceList' ,
+             getCoinPrice:serverUrl+'material/getCoinPrice' ,
+             deleteCoinPrice:serverUrl+'material/deleteCoinPrice' ,
+             insertCoinPrice:serverUrl+'material/insertCoinPrice' ,
+             updateCoinPrice:serverUrl+'material/updateCoinPrice' ,
+         }
      }
 
 

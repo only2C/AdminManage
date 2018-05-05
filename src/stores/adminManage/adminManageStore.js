@@ -93,4 +93,31 @@ export default class  adminManageStore{
 
     }
 
+    //获取能源币
+    @observable CoinPrice = [];
+    @action getCoinPriceList(param,callback){
+        this.globalStore.hideAlert();
+        let that = this ;
+        $.ajax({
+            type: "GET",
+            url: Config.adminManage.coinPrice.getCoinPriceList,
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data.data)
+                    }
+
+                    this.CoinPrice = Object.assign([],data.data)
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+
+    }
 }
