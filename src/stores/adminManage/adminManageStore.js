@@ -212,4 +212,99 @@ export default class  adminManageStore{
         })
 
     }
+
+
+    @action saveCoinPriceList(param,callback){
+        this.globalStore.hideAlert();
+        let params = {
+            price:param.price ,
+            number:param.number ,
+            remarks:param.remarks,
+            sortNo:param.sortNo
+        };
+        let that = this ;
+        $.ajax({
+            type: "POST",
+            url: Config.adminManage.coinPrice.insertCoinPrice,
+            dataType: "json",
+            data:params,
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data.data)
+                    }
+                    that.globalStore.showInfo("保存成功！")
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+    }
+
+    //修改
+    @action updateCoinPrice(param,callback){
+        this.globalStore.hideAlert();
+        let params = {
+            id:param.id,
+            price:param.price ,
+            number:param.number ,
+            remarks:param.remarks,
+            sortNo:param.sortNo
+
+        };
+        let that = this ;
+        $.ajax({
+            type: "POST",
+            url: Config.adminManage.coinPrice.updateCoinPrice,
+            dataType: "json",
+            data:params,
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data)
+                    }
+                    that.globalStore.showInfo("保存成功！")
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "修改失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+
+    }
+
+    deleteCoinPrice =(param,callback)=>{
+        this.globalStore.hideAlert();
+        let params = {
+            id:param.id ,
+        };
+        let that = this ;
+        $.ajax({
+            type: "POST",
+            url: Config.adminManage.coinPrice.deleteCoinPrice,
+            dataType: "json",
+            data:params,
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data)
+                    }
+                    that.globalStore.showInfo("删除成功！")
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "删除失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+    }
 }

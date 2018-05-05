@@ -9,6 +9,7 @@ import {Button,Modal} from 'react-bootstrap';
 import adminManageStore from '../../stores/adminManage/adminManageStore';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ModalView from '../../components/adminManage/material/ModalView';
+import Menu from '@/containers/adminManage/Menu';
 const store = new adminManageStore();
 @observer
 export default class Material extends React.Component {
@@ -128,6 +129,10 @@ export default class Material extends React.Component {
         }
         return(
             <div className="a-box">
+                <Menu />
+
+                <h3>素材</h3>
+
                 <ul>
                    <li onClick={this.changeItem.bind(this,1)}>首页轮播</li>
                    <li onClick={this.changeItem.bind(this,2)}>首页效果图</li>

@@ -95,8 +95,9 @@ export default class Login extends React.Component {
             "userName":userName,
             "password":password
         }
+        window.location.hash='#/coinPrice/'
         store.userLogin(param,(data)=>{
-
+            window.location.hash='#/coinPrice/'
             localforage.setItem("userName",data.user.name)
             localforage.setItem("loginInfo",data,()=>{
                 window.location.hash='#/bossBill/'+data.factory.id;

@@ -53,11 +53,11 @@ var Config = {
             updateMaterial:serverUrl+'material/updateMaterial' ,
         },
          coinPrice:{
-             getCoinPriceList:serverUrl+'material/getCoinPriceList' ,
-             getCoinPrice:serverUrl+'material/getCoinPrice' ,
-             deleteCoinPrice:serverUrl+'material/deleteCoinPrice' ,
-             insertCoinPrice:serverUrl+'material/insertCoinPrice' ,
-             updateCoinPrice:serverUrl+'material/updateCoinPrice' ,
+             getCoinPriceList:serverUrl+'coinPrice/getCoinPriceList' ,
+             getCoinPrice:serverUrl+'coinPrice/getCoinPrice' ,
+             deleteCoinPrice:serverUrl+'coinPrice/deleteCoinPrice' ,
+             insertCoinPrice:serverUrl+'coinPrice/insertCoinPrice' ,
+             updateCoinPrice:serverUrl+'coinPrice/updateCoinPrice' ,
          },
          record:{
              listTransactionRecordByType:serverUrl+'record/listTransactionRecordByType',
