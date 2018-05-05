@@ -8,13 +8,19 @@ import Util from '../../common/utils';
 import {Button,Modal} from 'react-bootstrap';
 import adminManageStore from '../../stores/adminManage/adminManageStore';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
+import ModalView from '../../components/adminManage/material/ModalView';
 const store = new adminManageStore();
 @observer
 export default class Material extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            materialList:[],
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'img',name:'路径'},{code:'type',name:'类型'},{code:'remarks',name:'备注'},
+                {code:'sortNo',name:'排序'},{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间'},{code:'gmtModified',name:'修改时间'},
+            ],
+            show:false ,
+            operationData:{},
+            operationType:'preview'   ,  // preview 预览  edit 编辑  add 新增
 
         }
     }
@@ -23,9 +29,6 @@ export default class Material extends React.Component {
         this.getMaterialList();
     }
 
-    componentDidMount(){
-        this.getMaterialList();
-    }
     getMaterialList=()=>{
 
         store.getListMaterial({},(data)=>{
@@ -37,6 +40,31 @@ export default class Material extends React.Component {
 
     }
 
+    dataFormat = (rows,cell)=>{
+        return (
+            <span>{rows}</span>
+        )
+    }
+
+    previewRows = (rows)=>{
+        this.setState({
+            show:true ,
+            operationData:rows
+        })
+
+    }
+    editRows = (rows)=>{
+
+    }
+    deleteRows =()=>{
+
+    }
+    closeModal = ()=>{
+        this.setState({
+            show:false
+        })
+    }
+
     render(){
         console.log(store.ListMaterial)
         const  options ={
@@ -44,16 +72,33 @@ export default class Material extends React.Component {
         }
         return(
             <div className="a-box">
+                <div className="fr mb10">
+                    <Button bsStyle="info">新增</Button>
+                </div>
+
                 <BootstrapTable data={store.ListMaterial} striped hover options={options}>
                     <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='img'>路径</TableHeaderColumn>
-                    <TableHeaderColumn dataField='type'>类型</TableHeaderColumn>
-                    <TableHeaderColumn dataField='remarks'>备注</TableHeaderColumn>
-                    <TableHeaderColumn dataField='sortNo'>排序</TableHeaderColumn>
-                    <TableHeaderColumn dataField='isDeleted'>删除状态</TableHeaderColumn>
-                    <TableHeaderColumn dataField='gmtCreate'>创建时间</TableHeaderColumn>
-                    <TableHeaderColumn dataField='gmtModified'>修改时间</TableHeaderColumn>
+                    <TableHeaderColumn dataField='img' dataFormat={this.dataFormat}>路径</TableHeaderColumn>
+                    <TableHeaderColumn dataField='type' dataFormat={this.dataFormat}>类型</TableHeaderColumn>
+                    <TableHeaderColumn dataField='remarks' dataFormat={this.dataFormat}>备注</TableHeaderColumn>
+                    <TableHeaderColumn dataField='sortNo' dataFormat={this.dataFormat}>排序</TableHeaderColumn>
+                    <TableHeaderColumn dataField='isDeleted' dataFormat={this.dataFormat}>删除状态</TableHeaderColumn>
+                    <TableHeaderColumn dataField='gmtCreate' dataFormat={this.dataFormat}>创建时间</TableHeaderColumn>
+                    <TableHeaderColumn dataField='gmtModified' dataFormat={this.dataFormat}>修改时间</TableHeaderColumn>
+                    <TableHeaderColumn dataFormat = {
+                        (row,cell)=>{
+                            return(
+                                <div>
+                                    <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
+                                    <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
+                                    <span onClick={this.deleteRows.bind(this,row)}>删除</span>
+                                </div>
+                            )
+                        }
+                    }>操作</TableHeaderColumn>
                 </BootstrapTable>
+
+                <ModalView show= {this.state.show} closeModal={this.closeModal} data={this.state.operationData} type={this.state.operationType}/>
 
             </div>
         )
