@@ -10,6 +10,8 @@ import adminManageStore from '../../stores/adminManage/adminManageStore';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ModalView from '../../components/adminManage/material/ModalView';
 import Menu from '@/containers/adminManage/Menu';
+import Top from '@/containers/adminManage/Top';
+
 const store = new adminManageStore();
 @observer
 export default class CoinPrice extends React.Component {
@@ -122,7 +124,8 @@ export default class CoinPrice extends React.Component {
         }
         return(
             <div className="a-box">
-                <Menu />
+                <Top/>
+                <Menu tag="coinPrice"/>
                 <h3>能源币价格</h3>
 
                 <div className="fr mb10">

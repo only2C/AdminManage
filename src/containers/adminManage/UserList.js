@@ -10,6 +10,7 @@ import adminManageStore from '../../stores/adminManage/adminManageStore';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ModalView from '../../components/adminManage/material/ModalView';
 import Menu from '@/containers/adminManage/Menu';
+import Top from '@/containers/adminManage/Top';
 const store = new adminManageStore();
 @observer
 export default class UserList extends React.Component {
@@ -123,7 +124,8 @@ export default class UserList extends React.Component {
         }
         return(
             <div className="a-box">
-                <Menu />
+                <Top />
+                <Menu tag="userList"/>
 
                 <h3>交易凭证列表</h3>
 

@@ -10,6 +10,7 @@ import adminManageStore from '../../stores/adminManage/adminManageStore';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import ModalView from '../../components/adminManage/transaction/ModalView';
 import Menu from '@/containers/adminManage/Menu';
+import Top from '@/containers/adminManage/Top';
 const store = new adminManageStore();
 @observer
 export default class TransactionRecord extends React.Component {
@@ -117,7 +118,8 @@ export default class TransactionRecord extends React.Component {
         }
         return(
             <div className="a-box">
-                <Menu />
+                <Top />
+                <Menu tag="transactionRecord"/>
 
                 <h3>交易记录列表</h3>
 
