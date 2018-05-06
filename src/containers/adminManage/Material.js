@@ -17,12 +17,14 @@ export default class Material extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'img',name:'路径',add:true },{code:'type',name:'类型',add:true },{code:'remarks',name:'备注',add:true },
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'type',name:'类型',add:true },
                 {code:'sortNo',name:'排序',add:true },{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
+                {code:'remarks',name:'备注',add:true },{code:'img',name:'路径',add:true }
             ],
             show:false ,
             operationData:{},
-            item:1,
+            indexImg:[{code:1,name:"首页轮播"},{code:2,name:"首页效果图"},{code:3,name:"提现规则"}],
+            currentIndexImg:1,
             operationType:'preview'   ,  // preview 预览  edit 编辑  add 新增
 
         }
@@ -34,7 +36,7 @@ export default class Material extends React.Component {
 
     getMaterialList=()=>{
 
-        store.getListMaterial(this.state.item,(data)=>{
+        store.getListMaterial(this.state.currentIndexImg,(data)=>{
             this.setState({
                 materialList:data
             })
@@ -46,9 +48,9 @@ export default class Material extends React.Component {
     dataFormat = (type,rows,cell)=>{
         if(type=="type"){
             let name ="首页轮播";
-            if(type == 2 ){
+            if(cell.type == 2 ){
                 name ="首页效果图"
-            }else if(type ==3 ){
+            }else if(cell.type ==3 ){
                 name = "提现规则"
             }
             return (
@@ -66,7 +68,7 @@ export default class Material extends React.Component {
         this.setState({
             show:true,
             operationType:'add',
-            data:{}
+            operationData:{}
         })
 
     }
@@ -101,7 +103,7 @@ export default class Material extends React.Component {
 
     changeItem =( item )=>{
         this.setState({
-            item
+            currentIndexImg:item
         },()=>{
             this.getMaterialList()
         })
@@ -136,10 +138,13 @@ export default class Material extends React.Component {
 
                     <h3>素材</h3>
 
-                    <ul>
-                       <li onClick={this.changeItem.bind(this,1)}>首页轮播</li>
-                       <li onClick={this.changeItem.bind(this,2)}>首页效果图</li>
-                       <li onClick={this.changeItem.bind(this,3)}>提现规则</li>
+                    <ul className="a-nav-ul">
+                        {this.state.indexImg.map((m,n)=>{
+                            return (
+                                <li key={n} className={this.state.currentIndexImg == n+1 ? "active": ""}  onClick={this.changeItem.bind(this,m.code)}>{m.name}</li>
+                            )
+                        })}
+
                     </ul>
 
                     <div className="fr mb10">
@@ -159,10 +164,10 @@ export default class Material extends React.Component {
                         <TableHeaderColumn dataFormat = {
                             (cell,row)=>{
                                 return(
-                                    <div>
-                                        <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
-                                        <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
-                                        <span onClick={this.deleteRows.bind(this,row)}>删除</span>
+                                    <div className="a-operation-box">
+                                        <span className="mr10 glyphicon glyphicon-eye-open" onClick={this.previewRows.bind(this,row)} title="查看"></span>
+                                        <span className="mr10 glyphicon glyphicon-edit" onClick={this.editRows.bind(this,row)} title="编辑"></span>
+                                        <span onClick={this.deleteRows.bind(this,row)} className="glyphicon glyphicon-trash" title="删除"></span>
                                     </div>
                                 )
                             }

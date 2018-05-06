@@ -76,6 +76,11 @@ export default class  adminManageStore{
                     if(typeof callback == "function"){
                         callback(data.data)
                     }
+                    let result = data.data ;
+                    result.map((m)=>{
+                        m.gmtCreate  = Utils.formatDate(m.gmtCreate)
+                        m.gmtModified  = Utils.formatDate(m.gmtModified)
+                    })
 
                     this.ListMaterial = Object.assign([],data.data)
                 } else {

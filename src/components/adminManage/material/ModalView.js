@@ -64,7 +64,7 @@ export default class ModalView extends React.Component {
         return(
             <Modal show={this.props.show} bsSize="large" onHide={this.close}>
                 <Modal.Header closeButton>
-                    <Modal.Title>操作</Modal.Title>
+                    <Modal.Title>{this.props.type == "add"?"新增":(this.props.type =="edit"?"编辑":"查看")}</Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body>
@@ -72,7 +72,7 @@ export default class ModalView extends React.Component {
                         <div className="row a-preview">
                             {this.props.rowsName.map((m,n)=>{
                                 return(
-                                    <div className="col-md-6 a-preview-col" key={n}>
+                                    <div className={ m.code !="img" ? "col-md-6 a-preview-col":"col-md-12"} key={n}>
                                         <label>{m.name}:</label>
                                         {m.code =="img"?(<img src={data[m.code]} style={{width:"200px"}}/>):(<span>{data[m.code]}</span>)}
                                     </div>
@@ -87,7 +87,7 @@ export default class ModalView extends React.Component {
                             {this.props.rowsName.map((m,n)=>{
                                 if(m.add){
                                     return(
-                                        <div className="col-md-6 form-group" key={n}>
+                                        <div className={  m.code !="img" ? "col-md-6 form-group":"col-md-12"} key={n}>
                                             <label>{m.name}:</label>
                                             {m.code =="img"?(
                                                 <div>

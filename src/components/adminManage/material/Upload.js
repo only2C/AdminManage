@@ -75,7 +75,7 @@ class Upload extends React.Component {
                 <div className="upload">
                     <div className="upload-add">
                         <FileUpload options={ uploadOptions } className="file-upload" >
-                            <div className="upload-bg choose-btn" ref="chooseAndUpload"></div>
+                            <button className="choose-btn btn btn-success" ref="chooseAndUpload">上传图片</button>
                         </FileUpload>
                     </div>
                 </div>
