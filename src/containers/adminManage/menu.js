@@ -17,9 +17,10 @@ export default class Menu extends React.Component {
 
                 <ul>
                     <li>菜单在此</li>
-                    <li><a href="#/coinPrice">1能源币</a></li>
-                    <li><a href="#/material">2素材</a></li>
-                    <li></li>
+                    <li><a href="#/coinPrice">能源币</a></li>
+                    <li><a href="#/material">素材</a></li>
+                    <li><a href="#/source">交易凭证列表</a></li>
+                    <li><a href="#/userList">用户列表</a></li>
                     <li></li>
                 </ul>
             </div>

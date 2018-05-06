@@ -44,9 +44,13 @@ const Salary  = (props) => (<Bundle load={SalaryContainer} {...props}>{ (Page) =
 import LoginContainer2 from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Login';
 import MaterialContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Material';
 import CoinPriceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/CoinPrice';
+import SourceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Source';
+import UserListContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/UserList';
 const Login2  = (props) => (<Bundle load={LoginContainer2} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Material  = (props) => (<Bundle load={MaterialContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const CoinPrice  = (props) => (<Bundle load={CoinPriceContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
+const Source  = (props) => (<Bundle load={SourceContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
+const User  = (props) => (<Bundle load={UserListContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 
 const requireAuth = (nextState, replace, next) => {
   //切换路由时初始化环境
@@ -86,6 +90,8 @@ ReactDom.render(
 
       <Route path="/material" component={Material}/>
       <Route path="/coinPrice" component={CoinPrice}/>
+      <Route path="/source" component={Source}/>
+      <Route path="/userList" component={User}/>
     </Route>
   </Router>,
   document.getElementById('root')

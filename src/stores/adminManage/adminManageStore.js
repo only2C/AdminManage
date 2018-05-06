@@ -307,4 +307,61 @@ export default class  adminManageStore{
             }
         })
     }
+
+    //获取凭证
+    @observable sourceDocumentsList = [];
+    @action getSourceDocumentsList(param,callback){
+        this.globalStore.hideAlert();
+        let that = this ;
+        $.ajax({
+            type: "GET",
+            url: Config.adminManage.sourceDocumentsList + '?currentPage='+param.currentPage +"&pageSize="+param.pageSize + '&userName='+param.userName ,
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == -112) {
+                    if(typeof callback == "function"){
+                        callback(data.data)
+                    }
+
+                    this.sourceDocumentsList = Object.assign([],data.data)
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+
+    }
+
+   //用户列表
+
+    @observable userList = [];
+    @action getUserList(param,callback){
+            this.globalStore.hideAlert();
+            let that = this ;
+            $.ajax({
+                type: "GET",
+                url: Config.adminManage.userList + '?currentPage='+param.currentPage +"&pageSize="+param.pageSize + '&userName='+param.userName ,
+                dataType: "json",
+                contentType: "application/x-www-form-urlencoded",
+                success: data => {
+                    if (data.code == -112 ) {
+                        if(typeof callback == "function"){
+                            callback(data.data)
+                        }
+
+                        this.userList = Object.assign([],data.data)
+                    } else {
+                        that.globalStore.showError(data.error ? data.error : "查询失败")
+                    }
+                },
+                error: (xhr, status, err) => {
+                    this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+                }
+            })
+        }
+
 }

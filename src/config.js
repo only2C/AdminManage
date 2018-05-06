@@ -59,6 +59,8 @@ var Config = {
              insertCoinPrice:serverUrl+'coinPrice/insertCoinPrice' ,
              updateCoinPrice:serverUrl+'coinPrice/updateCoinPrice' ,
          },
+         sourceDocumentsList:serverUrl+'source/sourceDocumentsList',
+         userList:serverUrl + 'appUser/userList',
          record:{
              listTransactionRecordByType:serverUrl+'record/listTransactionRecordByType',
              checkBuyCoin:serverUrl+'record/checkBuyCoin',
