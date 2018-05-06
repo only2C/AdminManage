@@ -6,7 +6,7 @@ export default class Menu extends React.Component {
         super(props);
         this.state = {
             menu:[{name:"能源币",code:"coinPrice"},{name:"素材",code:"material"},{name:"交易凭证列表",code:"source"}
-            ,{name:"用户列表",code:"userList"},{name:"交易记录列表",code:"transactionRecord"}]
+            ,{name:"用户列表",code:"userList"},{name:"交易记录列表",code:"transactionRecord"},{name:"APP运营参数",code:"app"}]
         }
     }
 
@@ -22,7 +22,7 @@ export default class Menu extends React.Component {
                 <ul>
                     {this.state.menu.map((m,n)=>{
                         return (
-                            <li key={n} className={tag ? ( tag==m.code ?"active":"") : (n==0?"active":"")}><a href={ "#/"+m.code}>{m.name}</a></li>
+                            <li key={n} className={tag ? ( tag==m.code ?"active":"") : (n==0?"active":"")}><a href={ "#/"+m.code}><span className="glyphicon glyphicon-list mr5"></span>{m.name}</a></li>
                         )
                     })}
                 </ul>

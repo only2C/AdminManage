@@ -69,10 +69,10 @@ export default class ModalView extends React.Component {
 
                 <Modal.Body>
                     {this.props.type == "preview"?(
-                        <div className="row">
+                        <div className="row a-preview">
                             {this.props.rowsName.map((m,n)=>{
                                 return(
-                                    <div className="col-md-6" key={n}>
+                                    <div className="col-md-6 a-preview-col" key={n}>
                                         <label>{m.name}:</label>
                                         {m.code =="img"?(<img src={data[m.code]} style={{width:"200px"}}/>):(<span>{data[m.code]}</span>)}
                                     </div>

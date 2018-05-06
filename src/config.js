@@ -68,6 +68,11 @@ var Config = {
              checkWithdrawDeposit:serverUrl +'record/checkWithdrawDeposit'
          },
          upload:serverUrl+'upload/picUpload',
+         app:{
+             getParameter:serverUrl +'parameter/getParameter',
+             updateParameter:serverUrl + 'parameter/updateParameter'
+
+         }
      }
 
 

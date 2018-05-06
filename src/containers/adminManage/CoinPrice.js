@@ -46,29 +46,16 @@ export default class CoinPrice extends React.Component {
     }
 
     dataFormat = (type,rows,cell)=>{
-        if(type=="type"){
-            let name ="首页轮播";
-            if(type == 2 ){
-                name ="首页效果图"
-            }else if(type ==3 ){
-                name = "提现规则"
-            }
-            return (
-                <span>{name}</span>
-            )
-        }else{
-            return (
-                <span>{rows}</span>
-            )
-        }
-
+        return (
+            <span>{rows}</span>
+        )
     }
 
     addRows =()=>{
         this.setState({
             show:true,
             operationType:'add',
-            data:{}
+            operationData:{}
         })
 
     }
@@ -146,10 +133,10 @@ export default class CoinPrice extends React.Component {
                         <TableHeaderColumn dataFormat = {
                             (cell,row)=>{
                                 return(
-                                    <div>
-                                        <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
-                                        <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
-                                        <span onClick={this.deleteRows.bind(this,row)}>删除</span>
+                                    <div className="a-operation-box">
+                                        <span className="mr10 glyphicon glyphicon-eye-open" onClick={this.previewRows.bind(this,row)} title="查看"></span>
+                                        <span className="mr10 glyphicon glyphicon-edit" onClick={this.editRows.bind(this,row)} title="编辑"></span>
+                                        <span onClick={this.deleteRows.bind(this,row)} className="glyphicon glyphicon-trash" title="删除"></span>
                                     </div>
                                 )
                             }

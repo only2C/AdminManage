@@ -1,4 +1,4 @@
-/** 素材
+/** APP
  * */
 import React from 'react';
 import {observer} from 'mobx-react';
@@ -13,19 +13,19 @@ import Menu from '@/containers/adminManage/Menu';
 import Top from '@/containers/adminManage/Top';
 const store = new adminManageStore();
 @observer
-export default class UserList extends React.Component {
+export default class AppParam extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识'},{code:'inviterUserName',name:'邀请人用户名'}
-                ,{code:'inviterNickName',name:'邀请人昵称' },,{code:'invitationCode',name:'邀请码' },
-                {code:'phone',name:'电话' },{code:'userName',name:'用户名'},{code:'password',name:'密码'},
-                {code:'investment',name:'总投资'},{code:'remainingSum',name:'余额'},{code:'earnings',name:'收益'},
-                {code:'coinNumber',name:'能源币个数'},{code:'deductCoinNumber',name:'扣除能源币个数'},{code:'invitationCodeNum',name:'邀请码个数'},
-                {code:'realName',name:'真实姓名'},{code:'alipayNo',name:'支付宝账号'},{code:'transactionPassword',name:'交易密码'},
-                {code:'bankCardNumber',name:'银行卡号'},{code:'bankOfDeposit',name:'开户行'},{code:'nickName',name:'昵称'},
-                {code:'headPortrait',name:'头像'},{code:'score',name:'积分'},{code:'token',name:'token'},
-                {code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间'},{code:'gmtModified',name:'修改时间'},
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'invitationPrice',name:'邀请码价格',add:true },
+                {code:'earningsRatio',name:'收益比例',add:true },{code:'serviceCharge',name:'提现手续费比例',add:true },
+                {code:'energyScoreRatio',name:'提现转换积分比例',add:true },{code:'toAccount',name:'实际到账比例',add:true },
+                {code:'outMultiple',name:'出局占总投资倍数',add:true },{code:'firstGrade',name:'一级收益',add:true },
+                {code:'secondGrade',name:'二级收益',add:true },{code:'totalUsers',name:'当前在线总人数',add:true },
+                {code:'publicBankNumber',name:'对公账户',add:true },{code:'realName',name:'账户姓名',add:true },
+                {code:'bankOfDeposit',name:'开户行',add:true },{code:'remarks',name:'备注',add:true },
+                {code:'isDeleted',name:'删除状态', },
+                {code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
             ],
             show:false ,
             operationData:{},
@@ -40,21 +40,20 @@ export default class UserList extends React.Component {
     }
 
     getDataList=()=>{
-        let param ={
-            currentPage	:1 ,
-            pageSize:100,
-            userName:''
-        }
-        store.getUserList(param,(data)=>{
-        })
+
+        store.getAppList();
 
 
     }
 
     dataFormat = (type,rows,cell)=>{
-        return (
-            <span title={rows}>{rows}</span>
-        )
+        if(type=="type"){
+
+        }else{
+            return (
+                <span>{rows}</span>
+            )
+        }
 
     }
 
@@ -108,28 +107,31 @@ export default class UserList extends React.Component {
         if(this.state.operationType =="add"){
             store.saveMaterial(data,()=>{
                 this.closeModal();
-                this.getMaterialList();
+                this.getDataList();
             })
         }else{
-            store.updateMaterial(data,()=>{
+            delete data.isDeleted ;
+            delete data.gmtCreate ;
+            delete data.gmtModified ;
+            store.updateApp(data,()=>{
                 this.closeModal();
-                this.getMaterialList();
+                this.getDataList();
             })
         }
+
+
     }
     render(){
-        console.log(store.ListMaterial)
         const  options ={
             noDataText:"暂无数据"
         }
         return(
             <div className="a-box">
                 <Top />
-                <Menu tag="userList"/>
+                <Menu tag="app"/>
                 <div className="a-container">
-
-                    <h3>用户列表</h3>
-                    <BootstrapTable data={store.userList} striped hover options={options}>
+                    <h3>App运营参数</h3>
+                    <BootstrapTable data={store.appList} striped hover options={options}>
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{
                             if(!m.hidden ){
@@ -139,8 +141,20 @@ export default class UserList extends React.Component {
                             }
                         })}
 
+                        <TableHeaderColumn dataFormat = {
+                            (cell,row)=>{
+                                return(
+                                    <div className="a-operation-box">
+                                        <span className="mr10 glyphicon glyphicon-eye-open" onClick={this.previewRows.bind(this,row)} title="查看"></span>
+                                        <span className="mr10 glyphicon glyphicon-edit" onClick={this.editRows.bind(this,row)} title="编辑"></span>
+                                    </div>
+                                )
+                            }
+                        }>操作</TableHeaderColumn>
                     </BootstrapTable>
                 </div>
+
+                <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
 
             </div>
         )

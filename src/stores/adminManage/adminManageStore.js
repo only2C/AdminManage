@@ -198,8 +198,12 @@ export default class  adminManageStore{
                     if(typeof callback == "function"){
                         callback(data.data)
                     }
-
-                    this.CoinPrice = Object.assign([],data.data)
+                    let result = data.data ;
+                    result.map((m)=>{
+                        m.gmtCreate  = Utils.formatDate(m.gmtCreate)
+                        m.gmtModified  = Utils.formatDate(m.gmtModified)
+                    })
+                    this.CoinPrice = Object.assign([],result)
                 } else {
                     that.globalStore.showError(data.error ? data.error : "查询失败")
                 }
@@ -321,6 +325,11 @@ export default class  adminManageStore{
                     if(typeof callback == "function"){
                         callback(data.data)
                     }
+                    let result = data.data ;
+                    result.map((m)=>{
+                        m.gmtCreate  = Utils.formatDate(m.gmtCreate)
+                        m.gmtModified  = Utils.formatDate(m.gmtModified)
+                    })
 
                     this.sourceDocumentsList = Object.assign([],data.data)
                 } else {
@@ -349,8 +358,12 @@ export default class  adminManageStore{
                         if(typeof callback == "function"){
                             callback(data.data)
                         }
-
-                        this.userList = Object.assign([],data.data)
+                        let result = data.data ;
+                        result.map((m)=>{
+                            m.gmtCreate  = Utils.formatDate(m.gmtCreate)
+                            m.gmtModified  = Utils.formatDate(m.gmtModified)
+                        })
+                        this.userList = Object.assign([],result)
                     } else {
                         that.globalStore.showError(data.error ? data.error : "查询失败")
                     }
@@ -380,8 +393,13 @@ export default class  adminManageStore{
                     if(typeof callback == "function"){
                         callback(data.data)
                     }
+                    let result = data.data ;
+                    result.map((m)=>{
+                        m.gmtCreate  = Utils.formatDate(m.gmtCreate)
+                        m.gmtModified  = Utils.formatDate(m.gmtModified)
+                    })
                     this.pageInfo = Object.assign({},{ count:data.count })
-                    this.transactionRecordList = Object.assign([],data.data)
+                    this.transactionRecordList = Object.assign([],result)
                 } else {
                     that.globalStore.showError(data.error ? data.error : "查询失败")
                 }
@@ -407,6 +425,64 @@ export default class  adminManageStore{
         $.ajax({
             type: "POST",
             url:url,
+            dataType: "json",
+            data:param,
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data)
+                    }
+                    that.globalStore.showInfo("操作成功！")
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "操作失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+    }
+
+
+    //APP运营参数
+    @observable appList= [];
+    @action getAppList(param,callback){
+        this.globalStore.hideAlert();
+        let that = this ;
+        $.ajax({
+            type: "GET",
+            url: Config.adminManage.app.getParameter ,
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 0 ) {
+                    if(typeof callback == "function"){
+                        callback(data.data)
+                    }
+                    let result = [] ;
+                    data.data.gmtCreate  = Utils.formatDate( data.data.gmtCreate)
+                    data.data.gmtModified  = Utils.formatDate( data.data.gmtModified)
+                    result.push(data.data)
+                    this.appList = Object.assign([],result)
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+    }
+
+    //修改运营参数
+
+    updateApp=(param,callback)=>{
+        this.globalStore.hideAlert();
+        let that = this ;
+        $.ajax({
+            type: "POST",
+            url:Config.adminManage.app.updateParameter,
             dataType: "json",
             data:param,
             contentType: "application/x-www-form-urlencoded",
