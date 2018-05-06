@@ -9,6 +9,6 @@ module.exports = {
   myHost:{
     path: 'dist',
     publicPath: './',
-    serverHost : "http://121.199.11.175:8080/boss"
+    serverHost : "https://591zml.com/zml_energy_coin_manage/"
   }
 }

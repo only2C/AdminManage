@@ -79,6 +79,7 @@ const requireAuth = (nextState, replace, next) => {
 ReactDom.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={Login2}/>
       <Route path="/bossBill/:factoryId" component={BossBill}/>
       <Route path="/billEdit/:pk/:factoryId/:add" component={BillEdit}/> /*编辑订单*/
       <Route path="/billEdit/:pk/:factoryId" component={BillEdit}/> /* 新增订单*/

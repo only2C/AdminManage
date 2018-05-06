@@ -46,8 +46,6 @@ export default class  adminManageStore{
             data: param,
             dataType: 'json',
             contentType: "application/x-www-form-urlencoded",
-
-
             success: data => {
                 if (data.code == 0 ) {
                     if(typeof callback == "function"){
