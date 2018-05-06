@@ -65,8 +65,9 @@ var Config = {
              listTransactionRecordByType:serverUrl+'record/listTransactionRecordByType',
              checkBuyCoin:serverUrl+'record/checkBuyCoin',
              checkBuyInvitation:serverUrl+'record/checkBuyInvitation',
+             checkWithdrawDeposit:serverUrl +'record/checkWithdrawDeposit'
          },
-         upload:serverUrl+'upload/picUpload'
+         upload:serverUrl+'upload/picUpload',
      }
 
 
