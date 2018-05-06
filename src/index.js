@@ -20,27 +20,6 @@ import App from './containers/App';
 import Bundle from './bundle.js';
 
 
-import BossBillContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/BossBill';
-import BillEditContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/BillEdit';
-import AddMoneyContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/AddMoney';
-import LoginContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/Login';
-import RegisterContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/Register';
-import CreditContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/Credit';
-import SettingContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/Setting';
-import SalaryContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/Salary';
-import BillDetailContainer from 'bundle-loader?lazy&name=app-[name]!./containers/bossBill/BillDetail';
-
-const BossBill  = (props) => (<Bundle load={BossBillContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const BillEdit  = (props) => (<Bundle load={BillEditContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const BillDetail  = (props) => (<Bundle load={BillDetailContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const AddMoney  = (props) => (<Bundle load={AddMoneyContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const Login  = (props) => (<Bundle load={LoginContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const Register  = (props) => (<Bundle load={RegisterContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const Credit  = (props) => (<Bundle load={CreditContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const Setting  = (props) => (<Bundle load={SettingContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-const Salary  = (props) => (<Bundle load={SalaryContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
-
-
 import LoginContainer2 from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Login';
 import MaterialContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Material';
 import CoinPriceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/CoinPrice';
@@ -80,17 +59,6 @@ ReactDom.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Login2}/>
-      <Route path="/bossBill/:factoryId" component={BossBill}/>
-      <Route path="/billEdit/:pk/:factoryId/:add" component={BillEdit}/> /*编辑订单*/
-      <Route path="/billEdit/:pk/:factoryId" component={BillEdit}/> /* 新增订单*/
-      <Route path="/addMoney/:pk/:factoryId" component={AddMoney}/> /* 新增收款*/
-      <Route path="/billDetail/:pk" component={BillDetail}/> /* 单据详情*/
-      <Route path="/login" component={Login2}/> /* 登陆 */
-      <Route path="/credit" component={Credit}/> /* 贷款*/
-      <Route path="/setting" component={Setting}/> /* 设置*/
-      <Route path="/salary/:pk/:factoryId" component={Salary}/> /* 计件工资*/
-      <Route path="/register" component={Register}/> /* 计件工资*/
-
       <Route path="/material" component={Material}/>
       <Route path="/coinPrice" component={CoinPrice}/>
       <Route path="/source" component={Source}/>
