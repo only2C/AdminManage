@@ -126,34 +126,36 @@ export default class CoinPrice extends React.Component {
             <div className="a-box">
                 <Top/>
                 <Menu tag="coinPrice"/>
-                <h3>能源币价格</h3>
+                <div className="a-container">
+                    <h3>能源币价格</h3>
 
-                <div className="fr mb10">
-                    <Button bsStyle="info" onClick={this.addRows}>新增</Button>
+                    <div className="fr mb10">
+                        <Button bsStyle="info" onClick={this.addRows}>新增</Button>
+                    </div>
+
+                    <BootstrapTable data={store.CoinPrice} striped hover options={options}>
+                        <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
+                        {this.state.rowsName.map((m,n)=>{
+                            if(!m.hidden ){
+                                return (
+                                    <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
+                                )
+                            }
+                        })}
+
+                        <TableHeaderColumn dataFormat = {
+                            (cell,row)=>{
+                                return(
+                                    <div>
+                                        <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
+                                        <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
+                                        <span onClick={this.deleteRows.bind(this,row)}>删除</span>
+                                    </div>
+                                )
+                            }
+                        }>操作</TableHeaderColumn>
+                    </BootstrapTable>
                 </div>
-
-                <BootstrapTable data={store.CoinPrice} striped hover options={options}>
-                    <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    {this.state.rowsName.map((m,n)=>{
-                        if(!m.hidden ){
-                            return (
-                                <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
-                            )
-                        }
-                    })}
-
-                    <TableHeaderColumn dataFormat = {
-                        (cell,row)=>{
-                            return(
-                                <div>
-                                    <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
-                                    <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
-                                    <span onClick={this.deleteRows.bind(this,row)}>删除</span>
-                                </div>
-                            )
-                        }
-                    }>操作</TableHeaderColumn>
-                </BootstrapTable>
 
                 <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
 

@@ -120,33 +120,31 @@ export default class TransactionRecord extends React.Component {
             <div className="a-box">
                 <Top />
                 <Menu tag="transactionRecord"/>
+                <div className="a-container">
+                    <h3>交易记录列表</h3>
+                    <BootstrapTable data={store.transactionRecordList} striped hover options={options} pagination >
+                        <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
+                        {this.state.rowsName.map((m,n)=>{
+                            if(!m.hidden ){
+                                return (
+                                    <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
+                                )
+                            }
+                        })}
+                        <TableHeaderColumn width='240px' dataFormat = {
+                            (cell,row)=>{
+                                return(
+                                    <div>
+                                        <span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>
+                                        <span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>
+                                        <span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>
+                                    </div>
+                                )
+                            }
+                        }>操作</TableHeaderColumn>
 
-                <h3>交易记录列表</h3>
-
-
-                <BootstrapTable data={store.transactionRecordList} striped hover options={options} pagination >
-                    <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    {this.state.rowsName.map((m,n)=>{
-                        if(!m.hidden ){
-                            return (
-                                <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
-                            )
-                        }
-                    })}
-                    <TableHeaderColumn width='240px' dataFormat = {
-                        (cell,row)=>{
-                            return(
-                                <div>
-                                    <span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>
-                                    <span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>
-                                    <span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>
-                                </div>
-                            )
-                        }
-                    }>操作</TableHeaderColumn>
-
-                </BootstrapTable>
-
+                    </BootstrapTable>
+                </div>
                 <ModalView show={this.state.show} options={this.state.options} closeModal={this.closeModal} saveModal={this.saveModal}/>
             </div>
         )

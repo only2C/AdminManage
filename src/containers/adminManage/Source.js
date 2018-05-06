@@ -53,7 +53,6 @@ export default class Source extends React.Component {
 
 
     render(){
-        console.log(store.ListMaterial)
         const  options ={
             noDataText:"暂无数据"
         }
@@ -61,22 +60,20 @@ export default class Source extends React.Component {
             <div className="a-box">
                 <Top/>
                 <Menu tag="source"/>
+                <div className="a-container">
+                    <h3>交易凭证列表</h3>
+                    <BootstrapTable data={store.sourceDocumentsList} striped hover options={options}>
+                        <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
+                        {this.state.rowsName.map((m,n)=>{
+                            if(!m.hidden ){
+                                return (
+                                    <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
+                                )
+                            }
+                        })}
 
-                <h3>交易凭证列表</h3>
-
-
-                <BootstrapTable data={store.ListMaterial} striped hover options={options}>
-                    <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    {this.state.rowsName.map((m,n)=>{
-                        if(!m.hidden ){
-                            return (
-                                <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
-                            )
-                        }
-                    })}
-
-                </BootstrapTable>
-
+                    </BootstrapTable>
+                </div>
 
             </div>
         )

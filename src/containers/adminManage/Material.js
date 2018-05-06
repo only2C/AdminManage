@@ -132,41 +132,43 @@ export default class Material extends React.Component {
             <div className="a-box">
                 <Top />
                 <Menu tag="material"/>
+                <div className="a-container">
 
-                <h3>素材</h3>
+                    <h3>素材</h3>
 
-                <ul>
-                   <li onClick={this.changeItem.bind(this,1)}>首页轮播</li>
-                   <li onClick={this.changeItem.bind(this,2)}>首页效果图</li>
-                   <li onClick={this.changeItem.bind(this,3)}>提现规则</li>
-                </ul>
+                    <ul>
+                       <li onClick={this.changeItem.bind(this,1)}>首页轮播</li>
+                       <li onClick={this.changeItem.bind(this,2)}>首页效果图</li>
+                       <li onClick={this.changeItem.bind(this,3)}>提现规则</li>
+                    </ul>
 
-                <div className="fr mb10">
-                    <Button bsStyle="info" onClick={this.addRows}>新增</Button>
+                    <div className="fr mb10">
+                        <Button bsStyle="info" onClick={this.addRows}>新增</Button>
+                    </div>
+
+                    <BootstrapTable data={store.ListMaterial} striped hover options={options}>
+                        <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
+                        {this.state.rowsName.map((m,n)=>{
+                            if(!m.hidden ){
+                                return (
+                                    <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
+                                )
+                            }
+                        })}
+
+                        <TableHeaderColumn dataFormat = {
+                            (cell,row)=>{
+                                return(
+                                    <div>
+                                        <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
+                                        <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
+                                        <span onClick={this.deleteRows.bind(this,row)}>删除</span>
+                                    </div>
+                                )
+                            }
+                        }>操作</TableHeaderColumn>
+                    </BootstrapTable>
                 </div>
-
-                <BootstrapTable data={store.ListMaterial} striped hover options={options}>
-                    <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
-                    {this.state.rowsName.map((m,n)=>{
-                        if(!m.hidden ){
-                            return (
-                                <TableHeaderColumn dataField={m.code} dataFormat={this.dataFormat.bind(this,m.code)}>{m.name}</TableHeaderColumn>
-                            )
-                        }
-                    })}
-
-                    <TableHeaderColumn dataFormat = {
-                        (cell,row)=>{
-                            return(
-                                <div>
-                                    <span className="mr5" onClick={this.previewRows.bind(this,row)}>查看</span>
-                                    <span className="mr5" onClick={this.editRows.bind(this,row)}>编辑</span>
-                                    <span onClick={this.deleteRows.bind(this,row)}>删除</span>
-                                </div>
-                            )
-                        }
-                    }>操作</TableHeaderColumn>
-                </BootstrapTable>
 
                 <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
 

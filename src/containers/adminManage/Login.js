@@ -97,11 +97,11 @@ export default class Login extends React.Component {
         }
         window.location.hash='#/coinPrice/'
         store.userLogin(param,(data)=>{
-            window.location.hash='#/coinPrice/'
-            localforage.setItem("userName",data.user.name)
+
+            localforage.setItem("userName",this.state.userName )
             localforage.setItem("loginInfo",data,()=>{
-                window.location.hash='#/bossBill/'+data.factory.id;
-                $("#root").removeClass("b-login")
+                $("#root").removeClass("b-login");
+                window.location.hash='#/coinPrice/'
             }).then(()=>{
 
             }).catch(()=>{
