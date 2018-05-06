@@ -23,7 +23,7 @@ export default class Menu extends React.Component {
                 <span className="fl top-title"><span className="glyphicon glyphicon-home mr15"></span>管理平台</span>
                 <div className="fr top-user">
                     <span>欢迎您！{this.state.userName}</span>
-                    <span><a href="#/login" className="ml10 mr10" title="退出"><i className="glyphicon glyphicon-log-out"></i></a></span>
+                    <span><a href="#/" className="ml10 mr10" title="退出"><i className="glyphicon glyphicon-log-out"></i></a></span>
                 </div>
             </div>
         )

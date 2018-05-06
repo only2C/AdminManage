@@ -52,7 +52,7 @@ export default class  adminManageStore{
                         callback(data)
                     }
                 } else {
-                    that.globalStore.showError(data.error ? data.error : "查询失败")
+                    that.globalStore.showError(data.msg ? data.msg : "登陆失败，账户或密码错误")
                 }
             },
             error: (xhr, status, err) => {
