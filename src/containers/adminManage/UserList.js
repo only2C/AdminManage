@@ -117,6 +117,27 @@ export default class UserList extends React.Component {
             })
         }
     }
+
+
+    getUserStatu =(rows)=>{
+        //	0：解冻；1：冻结
+        let param ={
+            userCode:rows.userCode ,
+            type:rows.isDeleted == 0 ? 1 :0
+        };
+        if(rows.isDeleted == 0){
+            param.token = rows.token ;
+        }
+        globalStore.showTipsModal("是否" + (rows.isDeleted ==0 ? "冻结":"解冻") + "该用户?","small",()=>{},()=>{
+            store.freezeUser(param,()=>{
+                this.getDataList()
+            })
+        });
+
+
+
+    }
+
     render(){
         console.log(store.ListMaterial)
         const  options ={
@@ -138,11 +159,12 @@ export default class UserList extends React.Component {
                                 )
                             }
                         })}
-                        <TableHeaderColumn dataFormat = {
+                        <TableHeaderColumn width="150px"  dataFormat = {
                             (cell,row)=>{
                                 return(
                                     <div className="a-operation-box">
-                                        <span className="mr10 glyphicon glyphicon-eye-open" onClick={this.previewRows.bind(this,row)} title="查看"></span>
+                                        <span className="mr10" onClick={this.previewRows.bind(this,row)} title="查看">查看</span>
+                                        <span title={row.isDeleted == 0 ? "冻结" :"解冻"} onClick={this.getUserStatu.bind(this,row)}>{row.isDeleted == 0 ? "冻结" :"解冻"}</span>
                                     </div>
                                 )
                             }

@@ -61,6 +61,7 @@ var Config = {
          },
          sourceDocumentsList:serverUrl+'source/sourceDocumentsList',
          userList:serverUrl + 'appUser/userList',
+         freezeUser:serverUrl +'appUser/freezeUser',
          record:{
              listTransactionRecordByType:serverUrl+'record/listTransactionRecordByType',
              checkBuyCoin:serverUrl+'record/checkBuyCoin',

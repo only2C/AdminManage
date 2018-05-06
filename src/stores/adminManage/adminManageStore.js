@@ -380,7 +380,7 @@ export default class  adminManageStore{
         }
 
 
-    //用户列表
+    //列表
     @observable transactionRecordList = [];
     @observable pageInfo ={};
     @action getTransactionRecord(param,callback){
@@ -407,6 +407,32 @@ export default class  adminManageStore{
                     this.transactionRecordList = Object.assign([],result)
                 } else {
                     that.globalStore.showError(data.error ? data.error : "查询失败")
+                }
+            },
+            error: (xhr, status, err) => {
+                this.globalStore.showError('数据请求失败,错误信息:' + err.toString());
+            }
+        })
+    }
+
+    freezeUser=(param,callback)=>{
+        this.globalStore.hideAlert();
+        let that = this ;
+
+        $.ajax({
+            type: "POST",
+            url:Config.adminManage.freezeUser,
+            dataType: "json",
+            data:param,
+            contentType: "application/x-www-form-urlencoded",
+            success: data => {
+                if (data.code == 1) {
+                    if(typeof callback == "function"){
+                        callback(data)
+                    }
+                    that.globalStore.showInfo("操作成功！")
+                } else {
+                    that.globalStore.showError(data.error ? data.error : "操作失败")
                 }
             },
             error: (xhr, status, err) => {
