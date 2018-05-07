@@ -50,7 +50,20 @@ export default class Source extends React.Component {
         )
 
     }
+    previewRows = (rows)=>{
+        this.setState({
+            show:true ,
+            operationData:rows,
+            operationType:'preview'
+        })
 
+    }
+
+    closeModal = ()=>{
+        this.setState({
+            show:false
+        })
+    }
 
     render(){
         const  options ={
@@ -71,10 +84,19 @@ export default class Source extends React.Component {
                                 )
                             }
                         })}
+                        <TableHeaderColumn width="150px"  dataFormat = {
+                            (cell,row)=>{
+                                return(
+                                    <div className="a-operation-box">
+                                        <span className="mr10" onClick={this.previewRows.bind(this,row)} title="查看">查看</span>
+                                    </div>
+                                )
+                            }
+                        }>操作</TableHeaderColumn>
 
                     </BootstrapTable>
                 </div>
-
+                <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>
             </div>
         )
     }
