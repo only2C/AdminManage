@@ -21,7 +21,9 @@ export default class Source extends React.Component {
                 {code:'phone',name:'电话',add:true },{code:'remarks',name:'备注'},{code:'isDeleted',name:'删除状态'},
                 {code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},{code:'img',name:'图片'},
             ],
-
+            userName:"",
+            currentPage:1,
+            pageSize:100
         }
     }
 
@@ -30,10 +32,11 @@ export default class Source extends React.Component {
     }
 
     getDataList=()=>{
+        let state= this.state ;
         let param ={
-            currentPage	:1 ,
-            pageSize:100,
-            userName:''
+            currentPage	:state.currentPage ,
+            pageSize:state.pageSize,
+            userName:state.userName
         }
         store.getSourceDocumentsList(param,(data)=>{
             this.setState({
@@ -65,6 +68,12 @@ export default class Source extends React.Component {
         })
     }
 
+    setUserName = (e)=>{
+        this.setState({
+            userName:e.target.value
+        })
+    }
+
     render(){
         const  options ={
             noDataText:"暂无数据"
@@ -75,6 +84,10 @@ export default class Source extends React.Component {
                 <Menu tag="source"/>
                 <div className="a-container">
                     <h3>交易凭证列表</h3>
+                    <form className="form-inline mt10 mb10">
+                         <input type="text" className="form-control fl mr15" onChange={this.setUserName} value={this.state.userName} placeholder="请输入用户名"/>
+                        <button className="btn btn-info" onClick={this.getDataList}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
+                    </form>
                     <BootstrapTable data={store.sourceDocumentsList} striped hover options={options}>
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{

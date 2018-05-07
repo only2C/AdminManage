@@ -31,7 +31,9 @@ export default class UserList extends React.Component {
             operationData:{},
             item:1,
             operationType:'preview'   ,  // preview 预览  edit 编辑  add 新增
-
+            userName:"",
+            currentPage:1,
+            pageSize:100
         }
     }
 
@@ -40,10 +42,11 @@ export default class UserList extends React.Component {
     }
 
     getDataList=()=>{
+        let state= this.state ;
         let param ={
-            currentPage	:1 ,
-            pageSize:100,
-            userName:''
+            currentPage	:state.currentPage ,
+            pageSize:state.pageSize,
+            userName:state.userName
         }
         store.getUserList(param,(data)=>{
         })
@@ -134,8 +137,13 @@ export default class UserList extends React.Component {
             })
         });
 
+    }
 
 
+    setUserName = (e)=>{
+        this.setState({
+            userName:e.target.value
+        })
     }
 
     render(){
@@ -150,6 +158,10 @@ export default class UserList extends React.Component {
                 <div className="a-container">
 
                     <h3>用户列表</h3>
+                    <form className="form-inline mt10 mb10">
+                        <input type="text" className="form-control fl mr15" onChange={this.setUserName} value={this.state.userName} placeholder="请输入用户名"/>
+                        <button className="btn btn-info" onClick={this.getDataList}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
+                    </form>
                     <BootstrapTable data={store.userList} striped hover options={options}>
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{
