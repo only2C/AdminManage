@@ -45,6 +45,7 @@ var Config = {
 
      adminManage:{
         userLogin:serverUrl + 'user/login', // 用户登录
+        getIndex :serverUrl+ 'admin/getIndex',
         material:{
             listMaterial:serverUrl+'material/listMaterial' ,
             getMaterial:serverUrl+'material/getMaterial' ,

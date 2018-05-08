@@ -19,7 +19,7 @@ import GlobalStore from './stores/GlobalStore';
 import App from './containers/App';
 import Bundle from './bundle.js';
 
-
+import HomeContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Home';
 import LoginContainer2 from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Login';
 import MaterialContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Material';
 import CoinPriceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/CoinPrice';
@@ -27,6 +27,7 @@ import SourceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adm
 import UserListContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/UserList';
 import TransactionRecordContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/TransactionRecord';
 import AppParamContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/AppParam';
+const Home  = (props) => (<Bundle load={HomeContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Login2  = (props) => (<Bundle load={LoginContainer2} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Material  = (props) => (<Bundle load={MaterialContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const CoinPrice  = (props) => (<Bundle load={CoinPriceContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
@@ -61,6 +62,7 @@ ReactDom.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Login2}/>
+      <Route path="/home" component={Home}/>
       <Route path="/material" component={Material}/>
       <Route path="/coinPrice" component={CoinPrice}/>
       <Route path="/source" component={Source}/>
