@@ -111,9 +111,7 @@ export default class TransactionRecord extends React.Component {
     render(){
         const  options ={
             noDataText:"暂无数据",
-            page:this.state.currentPage,
-            sizePerPage: this.state.pageSize,
-            paginationSize:10,
+            dataTotalSize:store.pageInfo.count,
             onPageChange:this.onPageChange
         }
         return(
