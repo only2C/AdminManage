@@ -128,12 +128,32 @@ export default class AppParam extends React.Component {
         const  options ={
             noDataText:"暂无数据"
         }
+        let data = store.appList.length>0 ?  store.appList[0]:[];
         return(
             <div className="a-box">
                 <Top />
                 <Menu tag="app"/>
                 <div className="a-container">
                     <h3>App运营参数</h3>
+
+                    <div className="fr mb10">
+                        <Button bsStyle="info" onClick={this.editRows.bind(this,data)}>编辑</Button>
+                    </div>
+                    <div className="row a-preview fl">
+                        {this.state.rowsName.map((m,n)=>{
+                            return(
+                                <div className={ m.code !="img" ? "col-md-6 a-preview-col":"col-md-12"} key={n}>
+                                    <label>{m.name}:</label>
+                                    {m.code =="img"?(<img src={data[m.code]} style={{width:"200px"}}/>):(<span>{data[m.code]}</span>)}
+                                </div>
+                            )
+
+                        })}
+                    </div>
+
+
+
+                    {/*
                     <BootstrapTable data={store.appList} striped hover options={options}>
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{
@@ -155,6 +175,7 @@ export default class AppParam extends React.Component {
                             }
                         }>操作</TableHeaderColumn>
                     </BootstrapTable>
+                     */}
                 </div>
 
                 <ModalView show= {this.state.show} saveModal = {this.saveModal} closeModal={this.closeModal} rowsName ={this.state.rowsName} data={this.state.operationData} type={this.state.operationType}/>

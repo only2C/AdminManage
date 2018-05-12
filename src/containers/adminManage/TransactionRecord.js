@@ -21,13 +21,10 @@ export default class TransactionRecord extends React.Component {
                 ,{code:'money',name:'金额'}  ,{code:'type',name:'交易类型' } ,{code:'recordCode',name:'交易金额',hidden:true},{code:'coinNum',name:'数量'},{code:'buyUserCode',name:'购买人标识',hidden:true}
                 ,{code:'buyUserName',name:'购买人昵称',hidden:true},{code:'userName',name:'姓名',hidden:true}
                 ,{code:'payType',name:'支付类型'},
-                {code:'isDeleted',name:'交易状态',format:(data)=>{
-                    //0未审核1审核通过2删除3审核不通过
-
-                }},
+                {code:'isDeleted',name:'交易状态'},
                 {code:'gmtCreate',name:'交易时间'}
                 ,{code:'gmtModified',name:'修改时间',hidden:true}
-            ], // paytype 1 余额 2 银行卡
+            ],
             show:false ,
             checkBuyCoinOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
             checkBuyInvitationOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
@@ -42,6 +39,23 @@ export default class TransactionRecord extends React.Component {
             operationType:0   ,  //0 checkBuyCoin   1 checkBuyInvitation   2 checkWithdrawDeposit
             currentPage:1,
             pageSize:10,
+            typeList:[
+                {code:"",name:"--请选择--"},
+                {code:1,name:"购买能源币"},{code:2,name:"转让余额"},{code:3,name:"奖励"},{code:4,name:"提现"},
+                {code:5,name:"购买邀请码"},{code:6,name:"转让邀请码"},{code:7,name:"转入余额"},{code:8,name:"转入邀请码"}
+            ],
+            payTypeList:[
+                {code:1,name:"余额"},{code:2,name:"银行卡"}
+            ],
+            isDeletedList:[
+                {code:"",name:"--请选择--"},
+                {code:0,name:"未审核"},{code:1,name:"审核通过"},{code:2,name:"删除"},{code:3,name:"审核不通过"}
+            ],
+            userName:"",
+            selectObj:{
+                isDeleted:'',
+                type:''
+            }
 
         }
     }
@@ -58,9 +72,10 @@ export default class TransactionRecord extends React.Component {
         let param ={
             currentPage	:this.state.currentPage ,
             pageSize:100,
-            userName:'',
-            type:'',
-            isDeleted:''
+            userName:this.state.userName,
+            type:this.state.selectObj["type"],
+            isDeleted:this.state.selectObj["isDeleted"]
+
         }
         store.getTransactionRecord(param,callback)
 
@@ -70,21 +85,23 @@ export default class TransactionRecord extends React.Component {
     dataFormat = (type,rows,cell)=>{
 
         if(type =="isDeleted"){
-            let result = "未审核";
-            if(rows.isDeleted == 1){
-                result = "审核通过"
-            }
-            if(rows.isDeleted == 2){
-                result = "删除"
-            }
-            if(rows.isDeleted== 3){
-                result = "审核不通过"
-            }
+            let result = this.commonFilter(cell.isDeleted , this.state.isDeletedList);
             return (
                 <span title={result}>{result}</span>
             )
 
-        }else{
+        }else if(type == "type"){
+            let result = this.commonFilter(cell.type , this.state.typeList);
+            return (
+                <span title={result}>{result}</span>
+            )
+        }else if(type=='payType'){
+            let result = this.commonFilter(cell.payType , this.state.payTypeList);
+            return (
+                <span title={result}>{result}</span>
+            )
+        }
+        else{
             return (
                 <span title={rows}>{rows}</span>
             )
@@ -167,6 +184,19 @@ export default class TransactionRecord extends React.Component {
         })
     }
 
+
+    commonFilter =( param , list) =>{
+        let result = "";
+        list.map((m)=>{
+            if(param == m.code ){
+                result = m.name ;
+                return ;
+            }
+        })
+        return result ;
+
+    }
+
     onPageChange =()=>{
 
     }
@@ -189,6 +219,21 @@ export default class TransactionRecord extends React.Component {
             )
         }
     }
+
+    setInput = (e) =>{
+        this.setState({
+            userName : e.target.value
+        })
+    }
+
+    setSelect = ( type , e ) =>{
+        let selectObj = this.state.selectObj ;
+        selectObj[type ]= e.target.value  ;
+        this.setState({
+            selectObj
+        })
+    }
+
     render(){
         const  options ={
             noDataText:"暂无数据",
@@ -201,6 +246,27 @@ export default class TransactionRecord extends React.Component {
                 <Menu tag="transactionRecord"/>
                 <div className="a-container">
                     <h3>交易记录列表</h3>
+                    <form className="form-inline mt10 mb10">
+                        <input type="text" className="form-control fl mr15" onChange={this.setInput} value={this.state.userName} placeholder="请输入用户名"/>
+
+                        <select className="form-control fl mr15" placeholder="交易类型" onChange={this.setSelect.bind(this,"type")}>
+                            {this.state.typeList.map((m,n)=>{
+                                return(
+                                    <option key={n} value={m.code}>{m.name}</option>
+                                )
+                            })}
+                        </select>
+                        <select className="form-control fl mr15" placeholder="交易状态" onChange={this.setSelect.bind(this,"isDeleted")}>
+                            {this.state.isDeletedList.map((m,n)=>{
+                                return(
+                                    <option key={n}  value={m.code}>{m.name}</option>
+                                )
+                            })}
+                        </select>
+                        <button className="btn btn-info" onClick={this.getDataList}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
+                    </form>
+
+
                     <ul className="a-nav-ul mt10 mb10">
                         {this.state.tab.map((m,n)=>{
                             return (
