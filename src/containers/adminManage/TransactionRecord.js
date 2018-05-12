@@ -17,12 +17,12 @@ export default class TransactionRecord extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'nickName',name:'用户名'}
-                ,{code:'recordCode',name:'交易金额'},{code:'coinNum',name:'数量'},{code:'buyUserCode',name:'购买人标识',hidden:true}
-                ,{code:'buyUserName',name:'购买人昵称',hidden:true},{code:'userName',name:'转让人',hidden:true},{code:'type',name:'交易类型'}
-                ,{code:'payType',name:'支付方式'},{code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'创建时间',hidden:true}
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'nickName',name:'用户名',hidden:true},{code:'myUserName',name:'用户名'}
+                ,{code:'money',name:'金额'}  ,{code:'type',name:'交易类型' } ,{code:'recordCode',name:'交易金额',hidden:true},{code:'coinNum',name:'数量'},{code:'buyUserCode',name:'购买人标识',hidden:true}
+                ,{code:'buyUserName',name:'购买人昵称',hidden:true},{code:'userName',name:'姓名',hidden:true}
+                ,{code:'payType',name:'支付类型'},{code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'交易时间'}
                 ,{code:'gmtModified',name:'修改时间',hidden:true}
-            ],
+            ], // paytype 1 余额 2 银行卡
             show:false ,
             checkBuyCoinOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
             checkBuyInvitationOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],

@@ -23,7 +23,7 @@ export default class Material extends React.Component {
             ],
             show:false ,
             operationData:{},
-            indexImg:[{code:1,name:"首页轮播"},{code:2,name:"首页效果图"},{code:3,name:"提现规则"}],
+            indexImg:[{code:1,name:"首页轮播"},{code:2,name:"首页效果图"}], //material
             currentIndexImg:1,
             operationType:'preview'   ,  // preview 预览  edit 编辑  add 新增
 

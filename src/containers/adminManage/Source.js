@@ -17,7 +17,7 @@ export default class Source extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'userName',name:'用户名',add:true },{code:'nickName',name:'昵称',add:true },
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'userName',name:'用户名',add:true },{code:'nickName',name:'昵称',add:true ,hidden:true},
                 {code:'phone',name:'电话',add:true },{code:'remarks',name:'备注'},{code:'isDeleted',name:'删除状态',hidden:true},
                 {code:'gmtCreate',name:'创建时间',type:"date",hidden:true},{code:'gmtModified',name:'修改时间',type:"date",hidden:true},{code:'img',name:'图片'},
             ],

@@ -17,13 +17,14 @@ export default class UserList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            //{code:'nickName',name:'昵称',hidden:true},{code:'inviterNickName',name:'邀请人昵称',hidden:true }
             rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'inviterUserName',name:'邀请人用户名'}
-                ,{code:'inviterNickName',name:'邀请人昵称',hidden:true },,{code:'invitationCode',name:'邀请码' },
+                ,,{code:'invitationCode',name:'邀请码' },
                 {code:'phone',name:'电话' },{code:'userName',name:'用户名'},{code:'password',name:'密码',hidden:true},
                 {code:'investment',name:'总投资'},{code:'remainingSum',name:'余额',hidden:true},{code:'earnings',name:'收益',hidden:true},
                 {code:'coinNumber',name:'能源币个数',hidden:true},{code:'deductCoinNumber',name:'扣除能源币个数',hidden:true},{code:'invitationCodeNum',name:'邀请码个数',hidden:true},
                 {code:'realName',name:'真实姓名',hidden:true},{code:'alipayNo',name:'支付宝账号'},{code:'transactionPassword',name:'交易密码',hidden:true},
-                {code:'bankCardNumber',name:'银行卡号'},{code:'bankOfDeposit',name:'开户行'},{code:'nickName',name:'昵称',hidden:true},
+                {code:'bankCardNumber',name:'银行卡号'},{code:'bankOfDeposit',name:'开户行'},
                 {code:'headPortrait',name:'头像',hidden:true},{code:'score',name:'积分',hidden:true},{code:'token',name:'token',hidden:true},
                 {code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'创建时间',hidden:true},{code:'gmtModified',name:'修改时间',hidden:true},
             ],
