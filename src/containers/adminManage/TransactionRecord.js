@@ -20,7 +20,12 @@ export default class TransactionRecord extends React.Component {
             rowsName: [{code:'id',name:'id',hidden:true},{code:'nickName',name:'用户名',hidden:true},{code:'myUserName',name:'用户名'}
                 ,{code:'money',name:'金额'}  ,{code:'type',name:'交易类型' } ,{code:'recordCode',name:'交易金额',hidden:true},{code:'coinNum',name:'数量'},{code:'buyUserCode',name:'购买人标识',hidden:true}
                 ,{code:'buyUserName',name:'购买人昵称',hidden:true},{code:'userName',name:'姓名',hidden:true}
-                ,{code:'payType',name:'支付类型'},{code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'交易时间'}
+                ,{code:'payType',name:'支付类型'},
+                {code:'isDeleted',name:'交易状态',format:(data)=>{
+                    //0未审核1审核通过2删除3审核不通过
+
+                }},
+                {code:'gmtCreate',name:'交易时间'}
                 ,{code:'gmtModified',name:'修改时间',hidden:true}
             ], // paytype 1 余额 2 银行卡
             show:false ,
@@ -29,18 +34,27 @@ export default class TransactionRecord extends React.Component {
             checkWithdrawDepositOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
             options:[],
             operationData:{},
+            tab:[{name:"全部",code:[]},{name:"能源币",code:[1]},{name:"邀请码",code:[5,6]},{name:"提现",code:[4]}],
+            tabIndex:0,
+            tableData:[],
+            tableDataBak:[], //备份数据
             item:1,
             operationType:0   ,  //0 checkBuyCoin   1 checkBuyInvitation   2 checkWithdrawDeposit
             currentPage:1,
-            pageSize:10
+            pageSize:10,
+
         }
     }
 
-    componentWillMount(){
-        this.getDataList();
+    componentDidMount(){
+        this.getDataList((data)=>{
+            this.setState({
+                tableData:data
+            })
+        });
     }
 
-    getDataList=()=>{
+    getDataList=(callback)=>{
         let param ={
             currentPage	:this.state.currentPage ,
             pageSize:100,
@@ -48,16 +62,36 @@ export default class TransactionRecord extends React.Component {
             type:'',
             isDeleted:''
         }
-        store.getTransactionRecord(param,(data)=>{
-        })
+        store.getTransactionRecord(param,callback)
 
 
     }
 
     dataFormat = (type,rows,cell)=>{
-        return (
-            <span title={rows}>{rows}</span>
-        )
+
+        if(type =="isDeleted"){
+            let result = "未审核";
+            if(rows.isDeleted == 1){
+                result = "审核通过"
+            }
+            if(rows.isDeleted == 2){
+                result = "删除"
+            }
+            if(rows.isDeleted== 3){
+                result = "审核不通过"
+            }
+            return (
+                <span title={result}>{result}</span>
+            )
+
+        }else{
+            return (
+                <span title={rows}>{rows}</span>
+            )
+
+        }
+
+
 
     }
     checkBuyCoin = (rows)=>{
@@ -105,8 +139,55 @@ export default class TransactionRecord extends React.Component {
 
     }
 
+    setTab =(list , index)=>{
+        this.filterData(list);
+        this.setState({
+            tabIndex:index,
+        })
+
+    }
+
+    filterData = (list)=>{
+        let result  =[] ;
+        this.getDataList();
+        const data= store.transactionRecordList ;
+        if(!list || list.length <=0 ){
+            result = data ;  //查询全部
+        }else{
+            list.map((m,n)=>{
+                let  d = _.remove(data,(x,y)=>{
+                    return x.type == m ;
+                })
+
+                result = d  ;
+            })
+        }
+        this.setState({
+            tableData : result
+        })
+    }
+
     onPageChange =()=>{
 
+    }
+
+    optionDom = ()=>{
+        if(this.state.tabIndex != 0){
+            return (
+                <TableHeaderColumn width='240px' dataFormat = {
+                    (cell,row)=>{
+                        return(
+                            <div>
+                                { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>) :''}
+                                {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>):""}
+                                {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>):""}
+                            </div>
+                        )
+
+                    }
+                }>操作</TableHeaderColumn>
+            )
+        }
     }
     render(){
         const  options ={
@@ -120,7 +201,16 @@ export default class TransactionRecord extends React.Component {
                 <Menu tag="transactionRecord"/>
                 <div className="a-container">
                     <h3>交易记录列表</h3>
-                    <BootstrapTable data={store.transactionRecordList} striped hover options={options} pagination >
+                    <ul className="a-nav-ul mt10 mb10">
+                        {this.state.tab.map((m,n)=>{
+                            return (
+                                <li key={n} className={n== this.state.tabIndex?"active":""} onClick={this.setTab.bind(this,m.code,n)}>{m.name}</li>
+                            )
+                        })}
+
+                    </ul>
+
+                    <BootstrapTable data={this.state.tableData} striped hover options={options} pagination >
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{
                             if(!m.hidden ){
@@ -129,17 +219,8 @@ export default class TransactionRecord extends React.Component {
                                 )
                             }
                         })}
-                        <TableHeaderColumn width='240px' dataFormat = {
-                            (cell,row)=>{
-                                return(
-                                    <div>
-                                        <span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>
-                                        <span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>
-                                        <span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>
-                                    </div>
-                                )
-                            }
-                        }>操作</TableHeaderColumn>
+
+                        {this.optionDom()}
 
                     </BootstrapTable>
                 </div>
