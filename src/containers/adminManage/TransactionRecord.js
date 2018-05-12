@@ -17,11 +17,11 @@ export default class TransactionRecord extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识'},{code:'nickName',name:'昵称'}
-                ,{code:'recordCode',name:'交易金额'},{code:'coinNum',name:'交易能源币'},{code:'buyUserCode',name:'购买人标识'}
-                ,{code:'buyUserName',name:'购买人昵称'},{code:'userName',name:'转让人'},{code:'type',name:'交易类型'}
-                ,{code:'payType',name:'支付方式'},{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间'}
-                ,{code:'gmtModified',name:'修改时间'}
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'nickName',name:'用户名'}
+                ,{code:'recordCode',name:'交易金额'},{code:'coinNum',name:'数量'},{code:'buyUserCode',name:'购买人标识',hidden:true}
+                ,{code:'buyUserName',name:'购买人昵称',hidden:true},{code:'userName',name:'转让人',hidden:true},{code:'type',name:'交易类型'}
+                ,{code:'payType',name:'支付方式'},{code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'创建时间',hidden:true}
+                ,{code:'gmtModified',name:'修改时间',hidden:true}
             ],
             show:false ,
             checkBuyCoinOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],

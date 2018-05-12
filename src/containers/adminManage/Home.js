@@ -42,11 +42,24 @@ export default class Home extends React.Component {
             <div className="a-box">
                 <Top/>
                 <Menu tag="home"/>
-                <div className="a-container">
-                    平台总人数 {data.countAppUser}
-                    平台结余总金额{data.countRemainingSum}
-                    平台总投资{data.countInvestMoney}
-                    平台总提现{data.countWithdrawMoney}
+                <div className="a-container row">
+                    <div className={"a-total-num col-md-5"}>
+                        <h2>平台总人数</h2>
+                        <p>{data.countAppUser}</p>
+                    </div>
+                    <div className="a-total-money col-md-5 fr">
+                        <h2>平台结余总金额</h2>
+                        <p>{data.countRemainingSum}</p>
+                    </div>
+                    <div className="a-total-invest col-md-5">
+                        <h2>平台总投资</h2>
+                        <p>{data.countInvestMoney}</p>
+                    </div>
+                    <div className="a-total-cash col-md-5 fr">
+                        <h2>平台总提现</h2>
+                        <p>{data.countWithdrawMoney}</p>
+                    </div>
+
                 </div>
             </div>
         )

@@ -17,9 +17,9 @@ export default class Source extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识'},{code:'userName',name:'用户名',add:true },{code:'nickName',name:'昵称',add:true },
-                {code:'phone',name:'电话',add:true },{code:'remarks',name:'备注'},{code:'isDeleted',name:'删除状态'},
-                {code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},{code:'img',name:'图片'},
+            rowsName: [{code:'id',name:'id',hidden:true},{code:'userCode',name:'用户标识',hidden:true},{code:'userName',name:'用户名',add:true },{code:'nickName',name:'昵称',add:true },
+                {code:'phone',name:'电话',add:true },{code:'remarks',name:'备注'},{code:'isDeleted',name:'删除状态',hidden:true},
+                {code:'gmtCreate',name:'创建时间',type:"date",hidden:true},{code:'gmtModified',name:'修改时间',type:"date",hidden:true},{code:'img',name:'图片'},
             ],
             userName:"",
             currentPage:1,
@@ -76,7 +76,8 @@ export default class Source extends React.Component {
 
     render(){
         const  options ={
-            noDataText:"暂无数据"
+            noDataText:"暂无数据",
+            dataTotalSize:store.sourcePage.count
         }
         return(
             <div className="a-box">
@@ -88,7 +89,7 @@ export default class Source extends React.Component {
                          <input type="text" className="form-control fl mr15" onChange={this.setUserName} value={this.state.userName} placeholder="请输入用户名"/>
                         <button className="btn btn-info" onClick={this.getDataList}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
                     </form>
-                    <BootstrapTable data={store.sourceDocumentsList} striped hover options={options}>
+                    <BootstrapTable data={store.sourceDocumentsList} striped hover options={options} pagination>
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{
                             if(!m.hidden ){

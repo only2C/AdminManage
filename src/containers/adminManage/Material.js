@@ -18,7 +18,7 @@ export default class Material extends React.Component {
         super(props);
         this.state = {
             rowsName: [{code:'id',name:'id',hidden:true},{code:'type',name:'类型',add:true },
-                {code:'sortNo',name:'排序',add:true },{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"},
+                {code:'sortNo',name:'排序',add:true },{code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date",hidden:true},{code:'gmtModified',name:'修改时间',type:"date",hidden:true},
                 {code:'remarks',name:'备注',add:true },{code:'img',name:'路径',add:true }
             ],
             show:false ,

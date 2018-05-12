@@ -19,7 +19,7 @@ export default class CoinPrice extends React.Component {
         super(props);
         this.state = {
             rowsName: [{code:'id',name:'id',hidden:true},{code:'price',name:'价格',add:true },{code:'number',name:'套餐数量',add:true },{code:'remarks',name:'备注',add:true },
-               {code:'isDeleted',name:'删除状态'},{code:'gmtCreate',name:'创建时间',type:"date"},{code:'gmtModified',name:'修改时间',type:"date"}, {code:'sortNo',name:'排序',add:true },
+               {code:'isDeleted',name:'删除状态',hidden:true},{code:'gmtCreate',name:'创建时间',type:"date",hidden:true},{code:'gmtModified',name:'修改时间',type:"date",hidden:true}, {code:'sortNo',name:'排序',add:true },
             ],
             dataList:[],
             show:false ,

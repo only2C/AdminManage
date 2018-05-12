@@ -344,6 +344,7 @@ export default class  adminManageStore{
 
     //获取凭证
     @observable sourceDocumentsList = [];
+    @observable sourcePage={};
     @action getSourceDocumentsList(param,callback){
         this.globalStore.hideAlert();
         let that = this ;
@@ -364,6 +365,7 @@ export default class  adminManageStore{
                     })
 
                     this.sourceDocumentsList = Object.assign([],data.data)
+                    this.sourcePage = Object.assign({},data.count);
                 } else {
                     that.globalStore.showError(data.error ? data.error : "查询失败")
                 }
