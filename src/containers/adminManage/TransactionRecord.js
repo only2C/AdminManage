@@ -234,6 +234,14 @@ export default class TransactionRecord extends React.Component {
         })
     }
 
+    queryData = () =>{
+        this.getDataList((data)=>{
+            this.setState({
+                tableData:data
+            })
+        });
+    }
+
     render(){
         const  options ={
             noDataText:"暂无数据",
@@ -263,7 +271,7 @@ export default class TransactionRecord extends React.Component {
                                 )
                             })}
                         </select>
-                        <button className="btn btn-info" onClick={this.getDataList}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
+                        <button className="btn btn-info" onClick={this.queryData}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
                     </form>
 
 
