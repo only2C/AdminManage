@@ -13,7 +13,7 @@ import Menu from '@/containers/adminManage/Menu';
 import Top from '@/containers/adminManage/Top';
 const store = new adminManageStore();
 @observer
-export default class TransactionRecord extends React.Component {
+export default class TransactionApprove extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,10 +31,9 @@ export default class TransactionRecord extends React.Component {
             checkWithdrawDepositOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
             options:[],
             operationData:{},
-            tab:[{name:"全部",code:[]},{name:"能源币",code:[1]},{name:"邀请码",code:[5,6]},{name:"提现",code:[4]}],
+            tab:[{name:"能源币",code:[1]},{name:"邀请码",code:[5,6]},{name:"提现",code:[4]}],
             tabIndex:0,
             tableData:[],
-            tableDataBak:[], //备份数据
             item:1,
             operationType:0   ,  //0 checkBuyCoin   1 checkBuyInvitation   2 checkWithdrawDeposit
             currentPage:1,
@@ -61,14 +60,10 @@ export default class TransactionRecord extends React.Component {
     }
 
     componentDidMount(){
-        this.getDataList((data)=>{
-            this.setState({
-                tableData:data
-            })
-        });
+        this.getDataList();
     }
 
-    getDataList=(callback)=>{
+    getDataList=()=>{
         let param ={
             currentPage	:this.state.currentPage ,
             pageSize:100,
@@ -77,7 +72,9 @@ export default class TransactionRecord extends React.Component {
             isDeleted:this.state.selectObj["isDeleted"]
 
         }
-        store.getTransactionRecord(param,callback)
+        store.getTransactionRecord(param,(data)=>{
+            this.filterData(this.state.tab[this.state.tabIndex]["code"],data);
+        })
 
 
     }
@@ -164,10 +161,10 @@ export default class TransactionRecord extends React.Component {
 
     }
 
-    filterData = (list)=>{
+    filterData = (list,tabData)=>{
         let result  =[] ;
         this.getDataList();
-        const data= store.transactionRecordList ;
+        const data= tabData||store.transactionRecordList ;
         if(!list || list.length <=0 ){
             result = data ;  //查询全部
         }else{
@@ -251,9 +248,9 @@ export default class TransactionRecord extends React.Component {
         return(
             <div className="a-box">
                 <Top />
-                <Menu tag="transactionRecord"/>
+                <Menu tag="transactionApprove"/>
                 <div className="a-container">
-                    <h3>交易记录列表</h3>
+                    <h3>交易记录审批列表</h3>
                     <form className="form-inline mt10 mb10">
                         <input type="text" className="form-control fl mr15" onChange={this.setInput} value={this.state.userName} placeholder="请输入用户名"/>
 
@@ -274,16 +271,16 @@ export default class TransactionRecord extends React.Component {
                         <button className="btn btn-info" onClick={this.queryData}><i className="glyphicon glyphicon-search mr5"></i>查询</button>
                     </form>
 
-                    {/**
-                        <ul className="a-nav-ul mt10 mb10">
-                            {this.state.tab.map((m,n)=>{
-                                return (
-                                    <li key={n} className={n== this.state.tabIndex?"active":""} onClick={this.setTab.bind(this,m.code,n)}>{m.name}</li>
-                                )
-                            })}
 
-                        </ul>
-                     */}
+                    <ul className="a-nav-ul mt10 mb10">
+                        {this.state.tab.map((m,n)=>{
+                            return (
+                                <li key={n} className={n== this.state.tabIndex?"active":""} onClick={this.setTab.bind(this,m.code,n)}>{m.name}</li>
+                            )
+                        })}
+
+                    </ul>
+
                     <BootstrapTable data={this.state.tableData} striped hover options={options} pagination >
                         <TableHeaderColumn isKey dataField='id' hidden>Product ID</TableHeaderColumn>
                         {this.state.rowsName.map((m,n)=>{

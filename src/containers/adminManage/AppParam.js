@@ -20,6 +20,7 @@ export default class AppParam extends React.Component {
             rowsName: [{code:'id',name:'id',hidden:true},
                 {code:'realName',name:'账户姓名',add:true },
                 {code:'bankOfDeposit',name:'开户行',add:true },{code:'remarks',name:'备注',add:true },
+                {code:'todayPrice',name:"今日单价"},
                 {code:'invitationPrice',name:'邀请码价格',add:true,hidden:true },
                 {code:'earningsRatio',name:'收益比例',add:true ,hidden:true},{code:'serviceCharge',name:'提现手续费比例',add:true,hidden:true },
                 {code:'energyScoreRatio',name:'提现转换积分比例',add:true ,hidden:true},{code:'toAccount',name:'实际到账比例',add:true,hidden:true },

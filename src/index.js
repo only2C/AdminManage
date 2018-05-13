@@ -26,6 +26,7 @@ import CoinPriceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/
 import SourceContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/Source';
 import UserListContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/UserList';
 import TransactionRecordContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/TransactionRecord';
+import TransactionApproveContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/TransactionApprove';
 import AppParamContainer from 'bundle-loader?lazy&name=app-[name]!./containers/adminManage/AppParam';
 const Home  = (props) => (<Bundle load={HomeContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const Login2  = (props) => (<Bundle load={LoginContainer2} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
@@ -34,6 +35,7 @@ const CoinPrice  = (props) => (<Bundle load={CoinPriceContainer} {...props}>{ (P
 const Source  = (props) => (<Bundle load={SourceContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const User  = (props) => (<Bundle load={UserListContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const TransactionRecord  = (props) => (<Bundle load={TransactionRecordContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
+const TransactionApprove  = (props) => (<Bundle load={TransactionApproveContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 const AppParam  = (props) => (<Bundle load={AppParamContainer} {...props}>{ (Page) => <Page {...props} />}</Bundle>)
 
 const requireAuth = (nextState, replace, next) => {
@@ -68,6 +70,7 @@ ReactDom.render(
       <Route path="/source" component={Source}/>
       <Route path="/userList" component={User}/>
       <Route path="/transactionRecord" component={TransactionRecord}/>
+      <Route path="/transactionApprove" component={TransactionApprove}/>
       <Route path="/app" component={AppParam}/>
     </Route>
   </Router>,
