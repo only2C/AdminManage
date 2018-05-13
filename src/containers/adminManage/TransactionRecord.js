@@ -40,7 +40,7 @@ export default class TransactionRecord extends React.Component {
             currentPage:1,
             pageSize:10,
             typeList:[
-                {code:"",name:"--请选择--"},
+                {code:"",name:"--请选择交易类型--"},
                 {code:1,name:"购买能源币"},{code:2,name:"转让余额"},{code:3,name:"奖励"},{code:4,name:"提现"},
                 {code:5,name:"购买邀请码"},{code:6,name:"转让邀请码"},{code:7,name:"转入余额"},{code:8,name:"转入邀请码"}
             ],
@@ -48,7 +48,7 @@ export default class TransactionRecord extends React.Component {
                 {code:1,name:"余额"},{code:2,name:"银行卡"}
             ],
             isDeletedList:[
-                {code:"",name:"--请选择--"},
+                {code:"",name:"--请选择交易状态--"},
                 {code:0,name:"未审核"},{code:1,name:"审核通过"},{code:2,name:"删除"},{code:3,name:"审核不通过"}
             ],
             userName:"",
