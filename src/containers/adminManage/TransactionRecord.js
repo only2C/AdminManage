@@ -166,7 +166,7 @@ export default class TransactionRecord extends React.Component {
 
     filterData = (list)=>{
         let result  =[] ;
-        this.getDataList();
+       // this.getDataList();
         const data= store.transactionRecordList ;
         if(!list || list.length <=0 ){
             result = data ;  //查询全部

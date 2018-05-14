@@ -424,15 +424,16 @@ export default class  adminManageStore{
             contentType: "application/x-www-form-urlencoded",
             success: data => {
                 if (data.code == -112 ) {
-                    if(typeof callback == "function"){
-                        callback(data.data)
-                    }
                     let result = data.data ;
                     result.map((m)=>{
                         m.gmtCreate  = Utils.formatDate(m.gmtCreate)
                         m.gmtModified  = Utils.formatDate(m.gmtModified)
                     })
                     this.pageInfo = Object.assign({},{ count:data.count })
+                    if(typeof callback == "function"){
+                        callback(result)
+                    }
+
                     this.transactionRecordList = Object.assign([],result)
                 } else {
                     that.globalStore.showError(data.error ? data.error : "查询失败")

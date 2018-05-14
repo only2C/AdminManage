@@ -163,7 +163,7 @@ export default class TransactionApprove extends React.Component {
 
     filterData = (list,tabData)=>{
         let result  =[] ;
-        this.getDataList();
+        //this.getDataList();
         const data= tabData||store.transactionRecordList ;
         if(!list || list.length <=0 ){
             result = data ;  //查询全部
@@ -199,22 +199,20 @@ export default class TransactionApprove extends React.Component {
     }
 
     optionDom = ()=>{
-        if(this.state.tabIndex != 0){
-            return (
-                <TableHeaderColumn width='240px' dataFormat = {
-                    (cell,row)=>{
-                        return(
-                            <div>
-                                { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>) :''}
-                                {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>):""}
-                                {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>):""}
-                            </div>
-                        )
+        return (
+            <TableHeaderColumn width='240px' dataFormat = {
+                (cell,row)=>{
+                    return(
+                        <div className="">
+                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>) :''}
+                            {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>):""}
+                            {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>):""}
+                        </div>
+                    )
 
-                    }
-                }>操作</TableHeaderColumn>
-            )
-        }
+                }
+            }>操作</TableHeaderColumn>
+        )
     }
 
     setInput = (e) =>{
