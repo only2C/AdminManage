@@ -119,12 +119,18 @@ export default class TransactionApprove extends React.Component {
 
     }
     checkBuyInvitation =(rows)=>{
-        let options = this.state.checkBuyInvitationOptions
+      /*  let options = this.state.checkBuyInvitationOptions
         this.setState({
             show:true ,
             operationData:rows,
             operationType:1,
             options
+        })*/
+        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
+        this.setState({
+            operationType:1,
+        },()=> {
+            this.saveModal("", {id: rows.id, isDeleted: isDeleted})
         })
     }
     checkWithdrawDeposit =(rows)=>{
@@ -141,14 +147,16 @@ export default class TransactionApprove extends React.Component {
             show:false
         })
     }
-    saveModal =(data)=>{
+    saveModal =(data,obj)=>{
         let  operationType = this.state.operationType , operationData = this.state.operationData ;
         let param ={
             id:operationData.id,
             isDeleted:data
         }
-        store.checkTransaction(operationType,param,()=>{
-            this.closeModal();
+        let params = obj ? obj : param ;
+        store.checkTransaction(operationType,params,()=>{
+            if(this.state.show)
+                this.closeModal();
         })
 
     }
@@ -203,9 +211,9 @@ export default class TransactionApprove extends React.Component {
             <TableHeaderColumn width='240px' dataFormat = {
                 (cell,row)=>{
                     return(
-                        <div className="">
+                        <div className="a-tab-button">
                             { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>) :''}
-                            {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>审核邀请码</span>):""}
+                            {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "":"通过" )}</span>):""}
                             {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>):""}
                         </div>
                     )

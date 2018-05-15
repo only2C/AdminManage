@@ -476,10 +476,10 @@ export default class  adminManageStore{
         this.globalStore.hideAlert();
         let that = this ;
         let url = Config.adminManage.record.checkBuyCoin ;
-        if(url ==1 ){
+        if(type ==1 ){
             url = Config.adminManage.record.checkBuyInvitation
         }
-        if(url ==2 ){
+        if(type ==2 ){
             url = Config.adminManage.record.checkWithdrawDeposit
         }
 
