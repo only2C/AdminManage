@@ -211,13 +211,13 @@ export default class TransactionApprove extends React.Component {
 
     optionDom = ()=>{
         return (
-            <TableHeaderColumn width='240px' dataFormat = {
+            <TableHeaderColumn width='100px' dataFormat = {
                 (cell,row)=>{
                     return(
                         <div className="a-tab-button">
-                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核能源币</span>) :''}
-                            {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "":"通过" )}</span>):""}
-                            {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核提现</span>):""}
+                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核</span>) :''}
+                            {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "通过":"" )}</span>):""}
+                            {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核</span>):""}
                         </div>
                     )
 

@@ -14,7 +14,7 @@ export default {
       let d = this.getDate()
       m = m<10 ? '0'+m : m;
       d = d<10 ? '0'+d : d;
-      return this.getFullYear() + "-" + m + "-" + d;// + " " + this.getHours() + ":" + this.getMinutes();// + "分" + this.getSeconds() + "秒";
+      return this.getFullYear() + "-" + m + "-" + d + " " + this.getHours() + ":" + this.getMinutes() + ":" + this.getSeconds() + "";
     };
     Date.prototype.toFormym = function() {
       let m = (this.getMonth() + 1);
