@@ -494,9 +494,9 @@ export default class  adminManageStore{
                     if(typeof callback == "function"){
                         callback(data)
                     }
-                    that.globalStore.showInfo("操作成功！")
+                    that.globalStore.showModel("操作成功！")
                 } else {
-                    that.globalStore.showError(data.error ? data.error : "操作失败")
+                    that.globalStore.showModel(data.error ? data.error : "操作失败")
                 }
             },
             error: (xhr, status, err) => {

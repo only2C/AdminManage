@@ -161,6 +161,7 @@ export default class TransactionApprove extends React.Component {
         }
         let params = obj ? obj : param ;
         store.checkTransaction(operationType,params,()=>{
+            this.getDataList();
             if(this.state.show)
                 this.closeModal();
         })
@@ -217,15 +218,31 @@ export default class TransactionApprove extends React.Component {
 
     optionDom = ()=>{
         return (
-            <TableHeaderColumn width='100px' dataFormat = {
+            <TableHeaderColumn width='150px' dataFormat = {
                 (cell,row)=>{
-                    return(
+                  /*  return(
                         <div className="a-tab-button">
-                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "通过":"" )}</span>) :''}
+                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : "通过"}</span>) :''}
                             {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "通过":"" )}</span>):""}
                             {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核</span>):""}
                         </div>
-                    )
+                    )*/
+
+                    if(row.type == "1"){
+                        return (
+                            <div className="a-tab-button">
+                                <span className="mr5" title="通过" onClick={this.checkBuyCoin.bind(this,row,1)}> 通过</span>
+                                <span className="mr5" title="不通过" onClick={this.checkBuyCoin.bind(this,row,0)}> 不通过</span>
+                            </div>
+                        )
+                    }
+                    if(row.type == 4){
+                        return (
+                            <div className="a-tab-button">
+                                <span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核</span>
+                            </div>
+                        )
+                    }
 
                 }
             }>操作</TableHeaderColumn>
