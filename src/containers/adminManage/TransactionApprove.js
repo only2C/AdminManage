@@ -108,7 +108,7 @@ export default class TransactionApprove extends React.Component {
 
 
     }
-    checkBuyCoin = (rows)=>{
+    checkBuyCoin = (rows,isDeleted)=>{
        /* let options = this.state.checkBuyCoinOptions
         this.setState({
             show:true ,
@@ -116,7 +116,7 @@ export default class TransactionApprove extends React.Component {
             operationData:rows,
             options
         })*/
-        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
+        //let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
         this.setState({
             operationType:0,
         },()=> {
@@ -124,7 +124,7 @@ export default class TransactionApprove extends React.Component {
         })
 
     }
-    checkBuyInvitation =(rows)=>{
+    checkBuyInvitation =(rows,isDeleted)=>{
       /*  let options = this.state.checkBuyInvitationOptions
         this.setState({
             show:true ,
@@ -132,14 +132,14 @@ export default class TransactionApprove extends React.Component {
             operationType:1,
             options
         })*/
-        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
+       // let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
         this.setState({
             operationType:1,
         },()=> {
             this.saveModal("", {id: rows.id, isDeleted: isDeleted})
         })
     }
-    checkWithdrawDeposit =(rows)=>{
+    checkWithdrawDeposit =(rows,isDeleted)=>{
         // let options = this.state.checkWithdrawDepositOptions
         // this.setState({
         //     show:true ,
@@ -147,7 +147,7 @@ export default class TransactionApprove extends React.Component {
         //     operationData:rows,
         //     options
         // })
-        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
+       // let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
         this.setState({
             operationType:2,
         },()=> {
@@ -238,15 +238,15 @@ export default class TransactionApprove extends React.Component {
                         return (
                             <div className="a-tab-button">
                                 <span className="mr5" title="通过" onClick={this.checkBuyCoin.bind(this,row,1)}> 通过</span>
-                                <span className="mr5" title="不通过" onClick={this.checkBuyCoin.bind(this,row,0)}> 不通过</span>
+                                <span className="mr5" title="不通过" onClick={this.checkBuyCoin.bind(this,row,3)}> 不通过</span>
                             </div>
                         )
                     }
                     if(row.type == 4){
                         return (
                             <div className="a-tab-button">
-                                <span title="通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row)}>通过</span>
-                                <span title="不通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row)}>不通过</span>
+                                <span title="通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row,1)}>通过</span>
+                                <span title="不通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row,3)}>不通过</span>
                             </div>
                         )
                     }
