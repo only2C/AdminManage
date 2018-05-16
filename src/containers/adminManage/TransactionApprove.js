@@ -140,12 +140,18 @@ export default class TransactionApprove extends React.Component {
         })
     }
     checkWithdrawDeposit =(rows)=>{
-        let options = this.state.checkWithdrawDepositOptions
+        // let options = this.state.checkWithdrawDepositOptions
+        // this.setState({
+        //     show:true ,
+        //     operationType:2,
+        //     operationData:rows,
+        //     options
+        // })
+        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
         this.setState({
-            show:true ,
             operationType:2,
-            operationData:rows,
-            options
+        },()=> {
+            this.saveModal("", {id: rows.id, isDeleted: isDeleted})
         })
     }
     closeModal=()=>{
@@ -239,7 +245,8 @@ export default class TransactionApprove extends React.Component {
                     if(row.type == 4){
                         return (
                             <div className="a-tab-button">
-                                <span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核</span>
+                                <span title="通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row)}>通过</span>
+                                <span title="不通过" className="mr5" onClick={this.checkWithdrawDeposit.bind(this,row)}>不通过</span>
                             </div>
                         )
                     }
