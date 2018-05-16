@@ -31,7 +31,7 @@ export default class TransactionApprove extends React.Component {
             checkWithdrawDepositOptions:[{name:"未审核",code:0},{name:"审核通过",code:1},{name:"删除",code:2},{name:"审核不通过",code:3}],
             options:[],
             operationData:{},
-            tab:[{name:"能源币",code:[1]},{name:"邀请码",code:[5,6]},{name:"提现",code:[4]}],
+            tab:[{name:"能源币",code:[1]},/*{name:"邀请码",code:[5,6]},*/{name:"提现",code:[4]}],
             tabIndex:0,
             tableData:[],
             item:1,
@@ -109,12 +109,18 @@ export default class TransactionApprove extends React.Component {
 
     }
     checkBuyCoin = (rows)=>{
-        let options = this.state.checkBuyCoinOptions
+       /* let options = this.state.checkBuyCoinOptions
         this.setState({
             show:true ,
             operationType:0,
             operationData:rows,
             options
+        })*/
+        let isDeleted  = ( rows.isDeleted == 1 ? 3 : (rows.isDeleted ==3 ? 1 :""));
+        this.setState({
+            operationType:0,
+        },()=> {
+            this.saveModal("", {id: rows.id, isDeleted: isDeleted})
         })
 
     }
@@ -215,7 +221,7 @@ export default class TransactionApprove extends React.Component {
                 (cell,row)=>{
                     return(
                         <div className="a-tab-button">
-                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>审核</span>) :''}
+                            { ( row.type =="1")?(<span className="mr5" title="审核能源币" onClick={this.checkBuyCoin.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "通过":"" )}</span>) :''}
                             {row.type =="5"||row.type =="6" ?(<span className="mr5" title="审核邀请码" onClick={this.checkBuyInvitation.bind(this,row)}>{row.isDeleted == 1 ? "不通过" : (row.isDeleted == 3 ? "通过":"" )}</span>):""}
                             {row.type =="4" ? (<span title="审核提现" onClick={this.checkWithdrawDeposit.bind(this,row)}>审核</span>):""}
                         </div>
