@@ -162,9 +162,12 @@ export default class TransactionApprove extends React.Component {
     }
 
     setTab =(list , index)=>{
-        this.filterData(list);
+
+        //this.filterData(list);
         this.setState({
             tabIndex:index,
+        },()=>{
+            this.getDataList();
         })
 
     }
